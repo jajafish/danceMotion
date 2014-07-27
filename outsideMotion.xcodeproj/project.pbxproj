@@ -21,6 +21,7 @@
 		E77D418819844A820099C789 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D416A19844A820099C789 /* UIKit.framework */; };
 		E77D419019844A820099C789 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E77D418E19844A820099C789 /* InfoPlist.strings */; };
 		E77D419219844A820099C789 /* outsideMotionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E77D419119844A820099C789 /* outsideMotionTests.m */; };
+		E77D419C19844B0D0099C789 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D419B19844B0D0099C789 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		E77D418D19844A820099C789 /* outsideMotionTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "outsideMotionTests-Info.plist"; sourceTree = "<group>"; };
 		E77D418F19844A820099C789 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E77D419119844A820099C789 /* outsideMotionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = outsideMotionTests.m; sourceTree = "<group>"; };
+		E77D419B19844B0D0099C789 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E77D419C19844B0D0099C789 /* CoreMotion.framework in Frameworks */,
 				E77D416919844A820099C789 /* CoreGraphics.framework in Frameworks */,
 				E77D416B19844A820099C789 /* UIKit.framework in Frameworks */,
 				E77D416719844A820099C789 /* Foundation.framework in Frameworks */,
@@ -101,6 +104,7 @@
 		E77D416519844A820099C789 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E77D419B19844B0D0099C789 /* CoreMotion.framework */,
 				E77D416619844A820099C789 /* Foundation.framework */,
 				E77D416819844A820099C789 /* CoreGraphics.framework */,
 				E77D416A19844A820099C789 /* UIKit.framework */,
@@ -380,6 +384,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "outsideMotion/outsideMotion-Prefix.pch";
 				INFOPLIST_FILE = "outsideMotion/outsideMotion-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -393,6 +398,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "outsideMotion/outsideMotion-Prefix.pch";
 				INFOPLIST_FILE = "outsideMotion/outsideMotion-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -457,6 +463,7 @@
 				E77D419719844A820099C789 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E77D419819844A820099C789 /* Build configuration list for PBXNativeTarget "outsideMotionTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +472,7 @@
 				E77D419A19844A820099C789 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
