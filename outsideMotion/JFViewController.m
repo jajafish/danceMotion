@@ -147,11 +147,11 @@
     
     self.averageOfAccelXValues = sumOfAllXValues / arrayCount;
     
-    NSLog(@"the ACCEL x values are %@", self.allAccelX);
+//    NSLog(@"the ACCEL x values are %@", self.allAccelX);
     
     //    NSLog(@"the sum of all the x values is %f", sumOfAllXValues);
     
-    NSLog(@"the average of all the ACCEL x values is %f", self.averageOfAccelXValues);
+//    NSLog(@"the average of all the ACCEL x values is %f", self.averageOfAccelXValues);
     
 }
 
@@ -174,11 +174,11 @@
     
     self.averageOfAccelYValues = sumOfAllYValues / arrayCount;
     
-    NSLog(@"the ACCEL Y values are %@", self.allAccelY);
+//    NSLog(@"the ACCEL Y values are %@", self.allAccelY);
     
     //    NSLog(@"the sum of all the y values is %f", sumOfAllYValues);
     
-    NSLog(@"the average of all the ACCEL y values is %f", self.averageOfAccelYValues);
+//    NSLog(@"the average of all the ACCEL y values is %f", self.averageOfAccelYValues);
     
 }
 
@@ -199,9 +199,9 @@
     
     self.averageOfAccelZValues = sumOfAllZValues / arrayCount;
     
-    NSLog(@"the ACCEL z values are %@", self.allAccelZ);
+//    NSLog(@"the ACCEL z values are %@", self.allAccelZ);
     //    NSLog(@"the sum of all the z values is %f", sumOfAllZValues);
-    NSLog(@"the average of all the z ACCEL values is %f", self.averageOfAccelZValues);
+//    NSLog(@"the average of all the z ACCEL values is %f", self.averageOfAccelZValues);
     
 }
 
@@ -213,7 +213,7 @@
     
     self.averageOfAllAccelValues = addedAccelValues / 3;
     
-    NSLog(@"the average of ALL ACCEL values is %f", self.averageOfAllAccelValues);
+//    NSLog(@"the average of ALL ACCEL values is %f", self.averageOfAllAccelValues);
     
 }
 
