@@ -58,6 +58,12 @@
 
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (IBAction)startRecordingPressed:(id)sender {
     
     [self performSelector:@selector(analyzeUserMotion) withObject:nil afterDelay:2];
@@ -95,7 +101,7 @@
     
     if ([self.motionManager isAccelerometerAvailable])
     {
-        [self.motionManager setAccelerometerUpdateInterval:1.0f / 2.0f];
+        [self.motionManager setAccelerometerUpdateInterval:1.0f / 1.0f];
         
         [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
             
@@ -323,13 +329,26 @@
 }
 
 
-
-
-- (void)didReceiveMemoryWarning
+-(void)calculateNormOfMotionValues
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    
+    double result = pow(3, 2);
+    NSLog(@"%f", result);
+
+    
+    
 }
+
+
+
+- (IBAction)normPressed:(id)sender {
+    
+    [self calculateNormOfMotionValues];
+}
+
+
+
 
 
 
