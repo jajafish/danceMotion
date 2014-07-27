@@ -14,14 +14,25 @@
 
 @property (weak, nonatomic) IBOutlet UIView *recordingIndication;
 @property (strong, nonatomic) CMMotionManager *motionManager;
-@property (strong, nonatomic) NSMutableArray *allX;
-@property (strong, nonatomic) NSMutableArray *allY;
-@property (strong, nonatomic) NSMutableArray *allZ;
-@property double averageOfXValues;
-@property double averageOfYValues;
-@property double averageOfZValues;
-@property double averageOfAllGyroValues;
 @property BOOL isAnalyzing;
+
+// gyro
+@property (strong, nonatomic) NSMutableArray *allGyroX;
+@property (strong, nonatomic) NSMutableArray *allGyroY;
+@property (strong, nonatomic) NSMutableArray *allGyroZ;
+@property double averageOfGyroXValues;
+@property double averageOfGyroYValues;
+@property double averageOfGyroZValues;
+@property double averageOfAllGyroValues;
+
+// accell
+@property (strong, nonatomic) NSMutableArray *allAccelX;
+@property (strong, nonatomic) NSMutableArray *allAccelY;
+@property (strong, nonatomic) NSMutableArray *allAccelZ;
+@property double averageOfAccelXValues;
+@property double averageOfAccelYValues;
+@property double averageOfAccelZValues;
+@property double averageOfAllAccelValues;
 
 @end
 
@@ -33,20 +44,25 @@
     
     self.isAnalyzing = NO;
 
-    self.allX = [[NSMutableArray alloc]init];
-    self.allY = [[NSMutableArray alloc]init];
-    self.allZ = [[NSMutableArray alloc]init];
+    self.allGyroX = [[NSMutableArray alloc]init];
+    self.allGyroY = [[NSMutableArray alloc]init];
+    self.allGyroZ = [[NSMutableArray alloc]init];
+    
+    self.allAccelX = [[NSMutableArray alloc]init];
+    self.allAccelY = [[NSMutableArray alloc]init];
+    self.allAccelZ = [[NSMutableArray alloc]init];
     
     self.motionManager = [[CMMotionManager alloc]init];
     
     self.recordingIndication.backgroundColor = [UIColor redColor];
-    
-//    if (self.isAnalyzing){
-//        self.recordingIndication.backgroundColor = [UIColor greenColor];
-//    } else {
-//        self.recordingIndication.backgroundColor = [UIColor redColor];
-//    }
-    
+
+
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)startRecordingPressed:(id)sender {
@@ -56,34 +72,38 @@
 }
 
 
+// MOTION RECORDING
 
 -(void)analyzeUserMotion
 {
     
-//    self.isAnalyzing = YES;
     self.recordingIndication.backgroundColor = [UIColor greenColor];
     
-    if ([self.motionManager isGyroAvailable])
+    if ([self.motionManager isAccelerometerAvailable])
     {
+        [self.motionManager setAccelerometerUpdateInterval:1.0f / 1.0f];
         
-        [self.motionManager setGyroUpdateInterval:1.0f / 2.0f];
+        [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
+            
+            NSString *accelX = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.x];
+            [self.allAccelX addObject:accelX];
+            
+            NSString *accelY = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.y];
+            [self.allAccelY addObject:accelY];
+            
+            NSString *accelZ = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.z];
+            [self.allAccelZ addObject:accelZ];
+            
+            [self calculateAndSendNormOfMotionActivity:(NSString *)accelX :(NSString *)accelY :(NSString *)accelZ];
         
-        [self.motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-            
-            NSString *x = [[NSString alloc] initWithFormat:@"%.02f",gyroData.rotationRate.x];
-            [self.allX addObject:x];
-            
-            NSString *y = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.y];
-            [self.allY addObject:y];
-            
-            NSString *z = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.z];
-            [self.allZ addObject:z];
-            
         }];
         
-        [self performSelector:@selector(stopRecordingPressed:) withObject:nil afterDelay:20];
-        
     }
+    
+    
+    
+    
+//    [self performSelector:@selector(stopRecordingPressed:) withObject:nil afterDelay:1];
     
 }
 
@@ -92,52 +112,59 @@
     
     [self.motionManager stopGyroUpdates];
     
-    [self createAverageOfXValues];
+
     
-    [self createAverageOfYValues];
+    // ACCEL
+    [self createAverageOfAccelXValues];
+    [self createAverageOfAccelYValues];
+    [self createAverageOfAccelZValues];
+    [self averageAllAccelAverages];
     
-    [self createAverageOfZValues];
-    
-    [self averageAllGyroAverages];
     
 }
 
--(void)createAverageOfXValues
+
+
+
+// ACCEL ANALYSIS
+
+
+-(void)createAverageOfAccelXValues
 {
     
-    double arrayCount = [self.allX count];
+    double arrayCount = [self.allAccelX count];
     
     double sumOfAllXValues;
-
     
-    for (NSString *x in self.allX){
+    
+    for (NSString *x in self.allAccelX){
         
         double xdouble = [x doubleValue];
         
         sumOfAllXValues += xdouble;
-
+        
     }
     
-    self.averageOfXValues = sumOfAllXValues / arrayCount;
-
-    NSLog(@"the x values are %@", self.allX);
+    self.averageOfAccelXValues = sumOfAllXValues / arrayCount;
     
-//    NSLog(@"the sum of all the x values is %f", sumOfAllXValues);
+    NSLog(@"the ACCEL x values are %@", self.allAccelX);
     
-    NSLog(@"the average of all the x values is %f", self.averageOfXValues);
+    //    NSLog(@"the sum of all the x values is %f", sumOfAllXValues);
     
+    NSLog(@"the average of all the ACCEL x values is %f", self.averageOfAccelXValues);
     
 }
 
--(void)createAverageOfYValues
+
+-(void)createAverageOfAccelYValues
 {
     
-    double arrayCount = [self.allY count];
+    double arrayCount = [self.allAccelY count];
     
     double sumOfAllYValues;
     
     
-    for (NSString *y in self.allY){
+    for (NSString *y in self.allAccelY){
         
         double ydouble = [y doubleValue];
         
@@ -145,57 +172,119 @@
         
     }
     
-    self.averageOfYValues = sumOfAllYValues / arrayCount;
+    self.averageOfAccelYValues = sumOfAllYValues / arrayCount;
     
-    NSLog(@"the y values are %@", self.allY);
+    NSLog(@"the ACCEL Y values are %@", self.allAccelY);
     
-//    NSLog(@"the sum of all the y values is %f", sumOfAllYValues);
+    //    NSLog(@"the sum of all the y values is %f", sumOfAllYValues);
     
-    NSLog(@"the average of all the y values is %f", self.averageOfYValues);
+    NSLog(@"the average of all the ACCEL y values is %f", self.averageOfAccelYValues);
     
 }
 
--(void)createAverageOfZValues
+
+
+-(void)createAverageOfAccelZValues
 {
     
-    double arrayCount = [self.allZ count];
+    double arrayCount = [self.allAccelZ count];
     
     double sumOfAllZValues;
     
-    for (NSString *z in self.allZ){
+    for (NSString *z in self.allAccelZ){
         double zDouble = [z doubleValue];
         
         sumOfAllZValues += zDouble;
     }
     
-    self.averageOfZValues = sumOfAllZValues / arrayCount;
+    self.averageOfAccelZValues = sumOfAllZValues / arrayCount;
     
-    NSLog(@"the z values are %@", self.allZ);
-//    NSLog(@"the sum of all the z values is %f", sumOfAllZValues);
-    NSLog(@"the average of all the z values is %f", self.averageOfZValues);
+    NSLog(@"the ACCEL z values are %@", self.allAccelZ);
+    //    NSLog(@"the sum of all the z values is %f", sumOfAllZValues);
+    NSLog(@"the average of all the z ACCEL values is %f", self.averageOfAccelZValues);
     
 }
 
 
--(void)averageAllGyroAverages
+-(void)averageAllAccelAverages
 {
     
-    double addedGyroValues = self.averageOfXValues + self.averageOfYValues + self.averageOfZValues;
+    double addedAccelValues = self.averageOfAccelXValues + self.averageOfAccelYValues + self.averageOfAccelZValues;
     
-    self.averageOfAllGyroValues = addedGyroValues / 3;
+    self.averageOfAllAccelValues = addedAccelValues / 3;
     
-    NSLog(@"the average of ALL Gyro values is %f", self.averageOfAllGyroValues);
-
+    NSLog(@"the average of ALL ACCEL values is %f", self.averageOfAllAccelValues);
+    
 }
 
 
 
-- (void)didReceiveMemoryWarning
+-(void)calculateAndSendNormOfMotionActivity:(NSString *)accelXValue :(NSString *)accelYValue :(NSString *)accelZValue
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+    
+    // calculate the norm
 
+    double x = [accelXValue doubleValue];
+    double y = [accelYValue doubleValue];
+    double z = [accelZValue doubleValue];
+    
+    double x2 = pow(x, 2);
+    double y2 = pow(y, 2);
+    double z2 = pow(z, 2);
+    
+    double combOfSq = (x2 + y2 + z2);
+    
+    double rootOfComb = sqrt(combOfSq);
+    
+    NSLog(@"the root of the comb is %f", rootOfComb);
+
+    
+    // configure the extra post data
+    
+    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    NSString *userId = @"jared fishman";
+    
+
+    // make the post request
+
+    NSError *error;
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+    
+    NSString *serviceURL = @"http://192.168.8.221:3000/api";
+    
+    NSURL * url = [NSURL URLWithString:serviceURL];
+    NSMutableURLRequest * urlRequest = [NSMutableURLRequest requestWithURL:url];
+    
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    NSDictionary *jsonData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              [NSString stringWithFormat:@"%f", rootOfComb], @"intensity",
+                              [NSString stringWithFormat:@"%f", timeStamp], @"timestamp",
+                              userId, @"userid",
+                             nil];
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:jsonData options:0 error:&error];
+    [urlRequest setHTTPBody:postData];
+    
+    NSURLSessionDataTask * dataTask =[defaultSession dataTaskWithRequest:urlRequest
+                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                           NSLog(@"Response:%@ %@\n", response, error);
+                                                           if(error == nil)
+                                                           {
+                                                               NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                               NSLog(@"Data = %@",text);
+                                                           }
+                                                           
+                                                       }];
+    
+    
+    [dataTask resume];
+    
+}
 
 
 @end

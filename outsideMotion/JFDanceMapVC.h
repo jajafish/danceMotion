@@ -1,5 +1,5 @@
 //
-//  JFViewController.h
+//  JFDanceMapVC.h
 //  outsideMotion
 //
 //  Created by Jared Fishman on 7/26/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JFViewController : UIViewController <NSURLSessionDelegate, NSURLSessionDataDelegate, NSURLSessionTaskDelegate>
+@interface JFDanceMapVC : UIViewController
 
 @end

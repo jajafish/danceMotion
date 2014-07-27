@@ -22,6 +22,7 @@
 		E77D419019844A820099C789 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E77D418E19844A820099C789 /* InfoPlist.strings */; };
 		E77D419219844A820099C789 /* outsideMotionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E77D419119844A820099C789 /* outsideMotionTests.m */; };
 		E77D419C19844B0D0099C789 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D419B19844B0D0099C789 /* CoreMotion.framework */; };
+		E7E4F68B1984C7BD00759733 /* JFDanceMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E4F68A1984C7BD00759733 /* JFDanceMapVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		E77D418F19844A820099C789 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E77D419119844A820099C789 /* outsideMotionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = outsideMotionTests.m; sourceTree = "<group>"; };
 		E77D419B19844B0D0099C789 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		E7E4F6891984C7BD00759733 /* JFDanceMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFDanceMapVC.h; sourceTree = "<group>"; };
+		E7E4F68A1984C7BD00759733 /* JFDanceMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFDanceMapVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +124,8 @@
 				E77D417819844A820099C789 /* Main.storyboard */,
 				E77D417B19844A820099C789 /* JFViewController.h */,
 				E77D417C19844A820099C789 /* JFViewController.m */,
+				E7E4F6891984C7BD00759733 /* JFDanceMapVC.h */,
+				E7E4F68A1984C7BD00759733 /* JFDanceMapVC.m */,
 				E77D417E19844A820099C789 /* Images.xcassets */,
 				E77D416D19844A820099C789 /* Supporting Files */,
 			);
@@ -257,6 +262,7 @@
 				E77D417719844A820099C789 /* JFAppDelegate.m in Sources */,
 				E77D417D19844A820099C789 /* JFViewController.m in Sources */,
 				E77D417319844A820099C789 /* main.m in Sources */,
+				E7E4F68B1984C7BD00759733 /* JFDanceMapVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
