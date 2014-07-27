@@ -12,7 +12,8 @@ typedef enum stages {west, east}Direction;
 
 @interface JFDanceCompassVC ()
 
-@property (strong, nonatomic) IBOutlet UIImageView *compassImageView;
+@property (weak, nonatomic) IBOutlet UIView *subView;
+
 @property (strong, nonatomic) IBOutlet UISegmentedControl *hotStageSegment;
 @property (strong, nonatomic) CALayer *triangleShape;
 @property (strong, nonatomic) NSString *hotStage;
@@ -41,17 +42,19 @@ typedef enum stages {west, east}Direction;
     [self.hotStageSegment insertSegmentWithTitle:@"hip-hop" atIndex:1 animated:YES];
     [self.hotStageSegment addTarget:self action:@selector(hotStageIs:) forControlEvents:UIControlEventValueChanged];
     
-
-    
-    
-    self.compassImageView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 140, 240, 240)];
-    self.compassImageView.backgroundColor = [UIColor greenColor];
-    UIImage *img = [UIImage imageNamed:@"tree.jpg"];
-    self.compassImageView.image = img;
+    _subView.layer.contents = (id)[UIImage imageNamed:@"compass.png"].CGImage;
     
 
-    CGRect frameOfCompassImageView = self.compassImageView.frame;
-    NSLog(@"the frame of the compass image view is %@", NSStringFromCGRect(frameOfCompassImageView));
+    
+    
+//    self.compassImageView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 140, 240, 240)];
+//    self.compassImageView.backgroundColor = [UIColor greenColor];
+//    UIImage *img = [UIImage imageNamed:@"tree.jpg"];
+//    self.compassImageView.image = img;
+//    
+//
+//    CGRect frameOfCompassImageView = self.compassImageView.frame;
+//    NSLog(@"the frame of the compass image view is %@", NSStringFromCGRect(frameOfCompassImageView));
     
     
 
@@ -76,23 +79,34 @@ typedef enum stages {west, east}Direction;
 
 
 - (IBAction)rotateTheImage:(UIButton *)sender {
-//    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
-//    anim.fromValue = [NSValue valueWithCATransform3D:self.compassImageView.layer.transform];
-//    anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI, 0.0, 1.0, 0.0)];
-//    anim.duration = 1.0;
-//    anim.repeatCount = CGFLOAT_MAX;
-//    anim.autoreverses = YES;
-//    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//    [self.compassImageView.layer addAnimation:anim forKey:@"xform"];
-//    [self.view setNeedsDisplay];
+
+
+    CALayer *layer = _subView.layer;
     
-    NSLog(@"the compass SHOULD move");
+    CATransform3D perspective = CATransform3DIdentity;
+    perspective.m34 = -1.0 / 1000.0;
+    layer.transform = perspective;
     
-    CALayer *layer = self.compassImageView.layer;
-    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
-    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(layer.position.x, 0.0)];
+    CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    CATransform3D curlXform = layer.transform;
+    CATransform3D rotXform = CATransform3DRotate(curlXform, M_PI_2, 0.0, 1.0, 0.0);
+    
+    CATransform3D rotAndMoveLeft = CATransform3DTranslate(rotXform, 0.0, 0.0, -100.0);
+    CATransform3D rotAndMoveRight = CATransform3DTranslate(rotXform, 0.0, 0.0, 100.0);
+    
+    anim.values = @[
+                    [NSValue valueWithCATransform3D:curlXform],
+                    [NSValue valueWithCATransform3D:rotXform],
+                    [NSValue valueWithCATransform3D:rotAndMoveLeft],
+                    [NSValue valueWithCATransform3D:rotAndMoveRight],
+                    [NSValue valueWithCATransform3D:rotXform],
+                    ];
+    
     anim.duration = 2.0;
-    [layer addAnimation:anim forKey:@"anim"];
+    anim.repeatCount = CGFLOAT_MAX;
+    anim.autoreverses = NO;
+    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [layer addAnimation:anim forKey:@"xform"];
 
     
 }
