@@ -9,8 +9,12 @@
 #import "JFDanceCompassVC.h"
 #import <CoreLocation/CoreLocation.h>
 
-
-typedef enum stages {west, east}Direction;
+//typedef enum {
+//    kEast = NSRangeFromString(NSString *string = @"{90, 180}"),
+//    kSouth,
+//    kWest,
+//    kNorth
+//} GeneralDirection;
 
 @interface JFDanceCompassVC () <CLLocationManagerDelegate>
 
@@ -23,6 +27,15 @@ typedef enum stages {west, east}Direction;
 
 // Compass properties
 @property (strong, nonatomic) CLLocationManager *locationManager;
+
+
+@property NSRange eastRange;
+@property NSRange southRange;
+@property NSRange westRange;
+@property NSRange northRange;
+
+
+
 
 @end
 
@@ -69,6 +82,21 @@ typedef enum stages {west, east}Direction;
     [self.locationManager startUpdatingHeading];
     [self.locationManager startUpdatingLocation];
 
+    
+    // set up the directional ranges
+    
+    NSString *eastString = @"{90, 179}";
+    self.eastRange = NSRangeFromString(eastString);
+    
+    NSString *southString = @"{180, 269}";
+    self.southRange = NSRangeFromString(southString);
+    
+    NSString *westString = @"{270, 359}";
+    self.westRange = NSRangeFromString(westString);
+    
+    NSString *northString = @"{360, 89}";
+    self.northRange = NSRangeFromString(northString);
+    
 
 }
 
@@ -78,11 +106,33 @@ typedef enum stages {west, east}Direction;
     NSLog(@"COMPASS DATA");
     NSLog(@"%@", [NSString stringWithFormat:@"%f", newHeading.magneticHeading]);
     NSLog(@"%@", [NSString stringWithFormat:@"%f", newHeading.trueHeading]);
-    NSLog(@"%@", [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.longitude]);
-    NSLog(@"%@", [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.latitude]);
     
     
+    
+    int currentMagneticHeading = [[NSString stringWithFormat:@"%f", newHeading.magneticHeading] intValue];
+    
+    
+    if (NSLocationInRange(currentMagneticHeading, self.eastRange)){
+        NSLog(@"facing east");
+    } else if (NSLocationInRange(currentMagneticHeading, self.southRange)){
+        NSLog(@"facing south");
+    } else if (NSLocationInRange(currentMagneticHeading, self.westRange)){
+        NSLog(@"facing west");
+    } else if (NSLocationInRange(currentMagneticHeading, self.northRange)){
+        NSLog(@"facing north");
+    }
+
+    
+    
+    
+    
+    
+//    NSLog(@"%@", [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.longitude]);
+//    NSLog(@"%@", [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.latitude]);
+
 }
+
+
 
 
 - (IBAction)hotStageIs:(UISegmentedControl *)sender {
