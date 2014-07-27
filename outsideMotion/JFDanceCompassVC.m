@@ -39,6 +39,8 @@
 @property NSRange northRange;
 
 
+@property BOOL animatedStarted;
+
 @end
 
 @implementation JFDanceCompassVC
@@ -58,7 +60,7 @@
     [super viewDidLoad];
     
     // set up the background view
-    UIImage *backgroundView = [UIImage imageNamed:@"betterBack.png"];
+    UIImage *backgroundView = [UIImage imageNamed:@"finalbg.png"];
     self.backgroundSafariBrand = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 517)];
     self.backgroundSafariBrand.image = backgroundView;
     [self.view insertSubview:self.backgroundSafariBrand belowSubview:self.subView];
@@ -102,6 +104,8 @@
     
     self.layer = _subView.layer;
     self.anim = [CABasicAnimation animationWithKeyPath:@"transform"];
+    
+    self.animatedStarted = NO;
 
 }
 
@@ -185,17 +189,19 @@
         if (rockStageAmp > hipHopStageAmp){
             self.hotStage = @"Rock";
 //            NSLog(@"the rock stage is hotter");
-            [self pointTheCompassToWest];
+
             
         } else if (hipHopStageAmp > rockStageAmp) {
             self.hotStage = @"Hip-hop";
 //            NSLog(@"the hip hop stage is hotter");
-            [self pointTheCompassToEast];
+
         }
         
         NSLog(@"the hot stage is %@", self.hotStage);
         
+//        [self performSelector:@selector(pointTheCompass) withObject:nil afterDelay:500];
         
+        [self pointTheCompass];
         
     }];
     
@@ -206,12 +212,56 @@
 
 
 
-//
-//-(void)pointTheCompass
+
+-(void)pointTheCompass
+{
+    
+//    if (!self.animatedStarted){
+//        self.animatedStarted = YES;
+//        NSLog(@"started animating at %f", NSTimeIntervalSince1970);
+    
+    
+    if ([self.hotStage isEqualToString:@"Rock"]){
+        NSLog(@"the hot stage is rock (from if)");
+        
+        self.anim.fromValue = [NSValue valueWithCATransform3D:self.layer.transform];
+        self.anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0)];
+        self.anim.duration = 1.0;
+        self.anim.repeatCount = CGFLOAT_MAX;
+        self.anim.autoreverses = YES;
+        self.anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        [self.layer addAnimation:self.anim forKey:@"xform"];
+        
+        
+    } else if ([self.hotStage isEqualToString:@"Hip-hop"]){
+        
+        NSLog(@"the hot stage is hip hop (from if)");
+        
+        self.anim.fromValue = [NSValue valueWithCATransform3D:self.layer.transform];
+        self.anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, -1.0)];
+        self.anim.duration = 1.0;
+        self.anim.repeatCount = CGFLOAT_MAX;
+        self.anim.autoreverses = YES;
+        self.anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        [self.layer addAnimation:self.anim forKey:@"xform"];
+        NSLog(@"the animation is %@", self.anim);
+        
+ 
+        
+    }
+//    }
+    
+
+    
+}
+
+
+//-(void)pointTheCompassToWest
 //{
 //    
-//    if ([self.hotStage isEqualToString:@"Rock"]){
-//        NSLog(@"the hot stage is rock (from if)");
+//    if (!self.animatedStarted){
+//        self.animatedStarted = YES;
+//        NSLog(@"started animating at %f", NSTimeIntervalSince1970);
 //        
 //        self.anim.fromValue = [NSValue valueWithCATransform3D:self.layer.transform];
 //        self.anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0)];
@@ -220,9 +270,21 @@
 //        self.anim.autoreverses = YES;
 //        self.anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
 //        [self.layer addAnimation:self.anim forKey:@"xform"];
-//        
-//        
-//    } else if ([self.hotStage isEqualToString:@"Hip-hop"]){
+//
+//    } else {
+//        return;
+//    }
+//    
+//
+//}
+//
+//-(void)pointTheCompassToEast
+//{
+//    
+//    
+//    if (!self.animatedStarted){
+//        self.animatedStarted = YES;
+//        NSLog(@"started animating at %f", NSTimeIntervalSince1970);
 //        
 //        self.anim.fromValue = [NSValue valueWithCATransform3D:self.layer.transform];
 //        self.anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, -1.0)];
@@ -231,44 +293,18 @@
 //        self.anim.autoreverses = YES;
 //        self.anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
 //        [self.layer addAnimation:self.anim forKey:@"xform"];
-//        NSLog(@"the animation is %@", self.anim);
-//        
+//
+//
+//    } else {
+//        return;
 //    }
 //    
 //
 //    
+//
+//
+//    
 //}
-
-
--(void)pointTheCompassToWest
-{
-    
-    
-    self.anim.fromValue = [NSValue valueWithCATransform3D:self.layer.transform];
-    self.anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0)];
-    self.anim.duration = 1.0;
-    self.anim.repeatCount = CGFLOAT_MAX;
-    self.anim.autoreverses = YES;
-    self.anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [self.layer addAnimation:self.anim forKey:@"xform"];
-    
-    
-    [self.layer addAnimation:self.anim forKey:@"xform"];
-
-}
-
--(void)pointTheCompassToEast
-{
-    
-    self.anim.fromValue = [NSValue valueWithCATransform3D:self.layer.transform];
-    self.anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, -1.0)];
-    self.anim.duration = 1.0;
-    self.anim.repeatCount = CGFLOAT_MAX;
-    self.anim.autoreverses = YES;
-    self.anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [self.layer addAnimation:self.anim forKey:@"xform"];
-    
-}
 
 
 
