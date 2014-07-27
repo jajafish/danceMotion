@@ -78,27 +78,6 @@
     
     self.recordingIndication.backgroundColor = [UIColor greenColor];
     
-    if ([self.motionManager isGyroAvailable])
-    {
-        
-        [self.motionManager setGyroUpdateInterval:1.0f / 2.0f];
-        
-        [self.motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-            
-            NSString *gyroX = [[NSString alloc] initWithFormat:@"%.02f",gyroData.rotationRate.x];
-            [self.allGyroX addObject:gyroX];
-            
-            NSString *gyroY = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.y];
-            [self.allGyroY addObject:gyroY];
-            
-            NSString *gyroZ = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.z];
-            [self.allGyroZ addObject:gyroZ];
-            
-        }];
-        
-    }
-    
-    
     if ([self.motionManager isAccelerometerAvailable])
     {
         [self.motionManager setAccelerometerUpdateInterval:1.0f / 1.0f];
@@ -113,14 +92,17 @@
             
             NSString *accelZ = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.z];
             [self.allAccelZ addObject:accelZ];
-    
             
+            [self calculateAndSendNormOfMotionActivity:(NSString *)accelX :(NSString *)accelY :(NSString *)accelZ];
+        
         }];
         
     }
     
     
-    [self performSelector:@selector(stopRecordingPressed:) withObject:nil afterDelay:5];
+    
+    
+//    [self performSelector:@selector(stopRecordingPressed:) withObject:nil afterDelay:1];
     
 }
 
@@ -129,16 +111,7 @@
     
     [self.motionManager stopGyroUpdates];
     
-    
-    // GYRO
-    [self createAverageOfGyroXValues];
-    [self createAverageOfGyroYValues];
-    [self createAverageOfGyroZValues];
-    [self averageAllGyroAverages];
-    
-    
-    NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    
+
     
     // ACCEL
     [self createAverageOfAccelXValues];
@@ -149,92 +122,7 @@
     
 }
 
-// GYRO ANALYSIS
 
--(void)createAverageOfGyroXValues
-{
-    
-    double arrayCount = [self.allGyroX count];
-    
-    double sumOfAllXValues;
-
-    
-    for (NSString *x in self.allGyroX){
-        
-        double xdouble = [x doubleValue];
-        
-        sumOfAllXValues += xdouble;
-
-    }
-    
-    self.averageOfGyroXValues = sumOfAllXValues / arrayCount;
-
-    NSLog(@"the x values are %@", self.allGyroX);
-    
-//    NSLog(@"the sum of all the x values is %f", sumOfAllXValues);
-    
-    NSLog(@"the average of all the x values is %f", self.averageOfGyroXValues);
-
-}
-
--(void)createAverageOfGyroYValues
-{
-    
-    double arrayCount = [self.allGyroY count];
-    
-    double sumOfAllYValues;
-    
-    
-    for (NSString *y in self.allGyroY){
-        
-        double ydouble = [y doubleValue];
-        
-        sumOfAllYValues += ydouble;
-        
-    }
-    
-    self.averageOfGyroYValues = sumOfAllYValues / arrayCount;
-    
-    NSLog(@"the y values are %@", self.allGyroY);
-    
-//    NSLog(@"the sum of all the y values is %f", sumOfAllYValues);
-    
-    NSLog(@"the average of all the y values is %f", self.averageOfGyroYValues);
-    
-}
-
--(void)createAverageOfGyroZValues
-{
-    
-    double arrayCount = [self.allGyroZ count];
-    
-    double sumOfAllZValues;
-    
-    for (NSString *z in self.allGyroZ){
-        double zDouble = [z doubleValue];
-        
-        sumOfAllZValues += zDouble;
-    }
-    
-    self.averageOfGyroZValues = sumOfAllZValues / arrayCount;
-    
-    NSLog(@"the z values are %@", self.allGyroZ);
-//    NSLog(@"the sum of all the z values is %f", sumOfAllZValues);
-    NSLog(@"the average of all the z values is %f", self.averageOfGyroZValues);
-    
-}
-
-
--(void)averageAllGyroAverages
-{
-    
-    double addedGyroValues = self.averageOfGyroXValues + self.averageOfGyroYValues + self.averageOfGyroZValues;
-    
-    self.averageOfAllGyroValues = addedGyroValues / 3;
-    
-    NSLog(@"the average of ALL Gyro values is %f", self.averageOfAllGyroValues);
-
-}
 
 
 // ACCEL ANALYSIS
@@ -328,6 +216,26 @@
     
 }
 
+
+
+-(void)calculateAndSendNormOfMotionActivity:(NSString *)accelXValue :(NSString *)accelYValue :(NSString *)accelZValue
+{
+
+    double x = [accelXValue doubleValue];
+    double y = [accelYValue doubleValue];
+    double z = [accelZValue doubleValue];
+    
+    double x2 = pow(x, 2);
+    double y2 = pow(y, 2);
+    double z2 = pow(z, 2);
+    
+    double combOfSq = (x2 + y2 + z2);
+    
+    double rootOfComb = sqrt(combOfSq);
+    
+    NSLog(@"the root of the comb is %f", rootOfComb);
+    
+}
 
 -(void)calculateNormOfMotionValues
 {
