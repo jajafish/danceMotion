@@ -21,6 +21,10 @@
 @property (strong, nonatomic) NSString *accelY;
 @property (strong, nonatomic) NSString *accelZ;
 
+@property (strong, nonatomic) NSString *accelOldX;
+@property (strong, nonatomic) NSString *accelOldY;
+@property (strong, nonatomic) NSString *accelOldZ;
+
 // GYRO
 @property (strong, nonatomic) NSString *gyroX;
 @property (strong, nonatomic) NSString *gyroY;
@@ -40,9 +44,15 @@
     self.accelY = [[NSString alloc]init];
     self.accelZ = [[NSString alloc]init];
     
+    self.accelOldX = [[NSString alloc]init];
+    self.accelOldY = [[NSString alloc]init];
+    self.accelOldZ = [[NSString alloc]init];
+    
     self.gyroX = [[NSString alloc]init];
     self.gyroY = [[NSString alloc]init];
     self.gyroZ = [[NSString alloc]init];
+    
+
     
 
     self.motionManager = [[CMMotionManager alloc]init];
@@ -96,13 +106,16 @@
         
         [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
             
+            self.accelOldX = self.accelX;
             self.accelX = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.x];
-            
+
+            self.accelOldY = self.accelY;
             self.accelY = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.y];
             
+            self.accelOldZ = self.accelZ;
             self.accelZ = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.z];
             
-            [self calculateAndSendNormOfMotionActivity:self.accelX :self.accelY :self.accelZ :self.gyroX :self.gyroY :self.gyroZ];
+            [self calculateAndSendNormOfMotionActivity:self.accelX :self.accelY :self.accelZ :self.accelOldX :self.accelOldY :self.accelOldZ :self.gyroX :self.gyroY :self.gyroZ];
 
         }];
     
@@ -114,7 +127,7 @@
 #pragma mark - FINAL CALCULATIONS
 
 
--(void)calculateAndSendNormOfMotionActivity:(NSString *)accelXValue :(NSString *)accelYValue :(NSString *)accelZValue :(NSString *)gyroXValue :(NSString *)gyroYValue :(NSString *)gyroZValue
+-(void)calculateAndSendNormOfMotionActivity:(NSString *)accelXValue :(NSString *)accelYValue :(NSString *)accelZValue :(NSString *)oldXAccel :(NSString *)oldYAccel :(NSString *)oldZAccel :(NSString *)gyroXValue :(NSString *)gyroYValue :(NSString *)gyroZValue
 {
     
     // conver strings to doubles
@@ -123,6 +136,10 @@
     double accelX = [accelXValue doubleValue];
     double accelY = [accelYValue doubleValue];
     double accelZ = [accelZValue doubleValue];
+    
+    double accelOldX = [oldXAccel doubleValue];
+    double accelOldY = [oldYAccel doubleValue];
+    double accelOldZ = [oldZAccel doubleValue];
     
     // gyro
     double gyroX = [gyroXValue doubleValue];
@@ -139,23 +156,21 @@
     double combOfGyroSq = (gyroX2 + gyroY2 + gyroZ2);
     double rootOfGyroComb = sqrt(combOfGyroSq);
     
-    double gyroXDivNorm = gyroX / rootOfGyroComb;
-    double gyroYDivNorm = gyroY / rootOfGyroComb;
-    double gyroZDivNorm = gyroZ / rootOfGyroComb;
-    
 
-    // subtract gyro values from accell values
     
-    double x = accelX - gyroXDivNorm;
-    double y = accelY - gyroYDivNorm;
-    double z = accelZ - gyroZDivNorm;
+    // new x minus old x equals for final equation
+    
+    double finalAccelX = accelX - accelOldX;
+    double finalAccelY = accelY - accelOldY;
+    double finalAccelZ = accelZ - accelOldZ;
+    
     
     
     // create the norm of the new consolidated values
     
-    double x2 = pow(x, 2);
-    double y2 = pow(y, 2);
-    double z2 = pow(z, 2);
+    double x2 = pow(finalAccelX, 2);
+    double y2 = pow(finalAccelY, 2);
+    double z2 = pow(finalAccelZ, 2);
     double combOfSq = (x2 + y2 + z2);
     double rootOfComb = sqrt(combOfSq);
     NSLog(@"the root of the comb is %f", rootOfComb);
