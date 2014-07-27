@@ -14,12 +14,12 @@
 
 @property (weak, nonatomic) IBOutlet UIView *recordingIndication;
 @property (strong, nonatomic) CMMotionManager *motionManager;
-@property (strong, nonatomic) NSMutableArray *allX;
-@property (strong, nonatomic) NSMutableArray *allY;
-@property (strong, nonatomic) NSMutableArray *allZ;
-@property double averageOfXValues;
-@property double averageOfYValues;
-@property double averageOfZValues;
+@property (strong, nonatomic) NSMutableArray *allGyroX;
+@property (strong, nonatomic) NSMutableArray *allGyroY;
+@property (strong, nonatomic) NSMutableArray *allGyroZ;
+@property double averageOfGyroXValues;
+@property double averageOfGyroYValues;
+@property double averageOfGyroZValues;
 @property double averageOfAllGyroValues;
 @property BOOL isAnalyzing;
 
@@ -33,9 +33,9 @@
     
     self.isAnalyzing = NO;
 
-    self.allX = [[NSMutableArray alloc]init];
-    self.allY = [[NSMutableArray alloc]init];
-    self.allZ = [[NSMutableArray alloc]init];
+    self.allGyroX = [[NSMutableArray alloc]init];
+    self.allGyroY = [[NSMutableArray alloc]init];
+    self.allGyroZ = [[NSMutableArray alloc]init];
     
     self.motionManager = [[CMMotionManager alloc]init];
     
@@ -70,20 +70,36 @@
         
         [self.motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
             
-            NSString *x = [[NSString alloc] initWithFormat:@"%.02f",gyroData.rotationRate.x];
-            [self.allX addObject:x];
+            NSString *gyroX = [[NSString alloc] initWithFormat:@"%.02f",gyroData.rotationRate.x];
+            [self.allGyroX addObject:gyroX];
             
-            NSString *y = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.y];
-            [self.allY addObject:y];
+            NSString *gyroY = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.y];
+            [self.allGyroY addObject:gyroY];
             
-            NSString *z = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.z];
-            [self.allZ addObject:z];
+            NSString *gyroZ = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.z];
+            [self.allGyroZ addObject:gyroZ];
             
         }];
         
         [self performSelector:@selector(stopRecordingPressed:) withObject:nil afterDelay:20];
         
     }
+    
+    
+//    if ([self.motionManager isAccelerometerAvailable])
+//    {
+//        
+//        [self.motionManager setAccelerometerUpdateInterval:1.0f / 2.0f];
+//        
+//        [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
+//            
+//            
+//            
+//            
+//        }];
+//        
+//    }
+    
     
 }
 
@@ -92,25 +108,25 @@
     
     [self.motionManager stopGyroUpdates];
     
-    [self createAverageOfXValues];
+    [self createAverageOfGyroXValues];
     
-    [self createAverageOfYValues];
+    [self createAverageOfGyroYValues];
     
-    [self createAverageOfZValues];
+    [self createAverageOfGyroZValues];
     
     [self averageAllGyroAverages];
     
 }
 
--(void)createAverageOfXValues
+-(void)createAverageOfGyroXValues
 {
     
-    double arrayCount = [self.allX count];
+    double arrayCount = [self.allGyroX count];
     
     double sumOfAllXValues;
 
     
-    for (NSString *x in self.allX){
+    for (NSString *x in self.allGyroX){
         
         double xdouble = [x doubleValue];
         
@@ -118,26 +134,26 @@
 
     }
     
-    self.averageOfXValues = sumOfAllXValues / arrayCount;
+    self.averageOfGyroXValues = sumOfAllXValues / arrayCount;
 
-    NSLog(@"the x values are %@", self.allX);
+    NSLog(@"the x values are %@", self.allGyroX);
     
 //    NSLog(@"the sum of all the x values is %f", sumOfAllXValues);
     
-    NSLog(@"the average of all the x values is %f", self.averageOfXValues);
+    NSLog(@"the average of all the x values is %f", self.averageOfGyroXValues);
     
     
 }
 
--(void)createAverageOfYValues
+-(void)createAverageOfGyroYValues
 {
     
-    double arrayCount = [self.allY count];
+    double arrayCount = [self.allGyroY count];
     
     double sumOfAllYValues;
     
     
-    for (NSString *y in self.allY){
+    for (NSString *y in self.allGyroY){
         
         double ydouble = [y doubleValue];
         
@@ -145,34 +161,34 @@
         
     }
     
-    self.averageOfYValues = sumOfAllYValues / arrayCount;
+    self.averageOfGyroYValues = sumOfAllYValues / arrayCount;
     
-    NSLog(@"the y values are %@", self.allY);
+    NSLog(@"the y values are %@", self.allGyroY);
     
 //    NSLog(@"the sum of all the y values is %f", sumOfAllYValues);
     
-    NSLog(@"the average of all the y values is %f", self.averageOfYValues);
+    NSLog(@"the average of all the y values is %f", self.averageOfGyroYValues);
     
 }
 
--(void)createAverageOfZValues
+-(void)createAverageOfGyroZValues
 {
     
-    double arrayCount = [self.allZ count];
+    double arrayCount = [self.allGyroZ count];
     
     double sumOfAllZValues;
     
-    for (NSString *z in self.allZ){
+    for (NSString *z in self.allGyroZ){
         double zDouble = [z doubleValue];
         
         sumOfAllZValues += zDouble;
     }
     
-    self.averageOfZValues = sumOfAllZValues / arrayCount;
+    self.averageOfGyroZValues = sumOfAllZValues / arrayCount;
     
-    NSLog(@"the z values are %@", self.allZ);
+    NSLog(@"the z values are %@", self.allGyroZ);
 //    NSLog(@"the sum of all the z values is %f", sumOfAllZValues);
-    NSLog(@"the average of all the z values is %f", self.averageOfZValues);
+    NSLog(@"the average of all the z values is %f", self.averageOfGyroZValues);
     
 }
 
@@ -180,7 +196,7 @@
 -(void)averageAllGyroAverages
 {
     
-    double addedGyroValues = self.averageOfXValues + self.averageOfYValues + self.averageOfZValues;
+    double addedGyroValues = self.averageOfGyroXValues + self.averageOfGyroYValues + self.averageOfGyroZValues;
     
     self.averageOfAllGyroValues = addedGyroValues / 3;
     
