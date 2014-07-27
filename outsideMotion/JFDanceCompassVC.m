@@ -46,7 +46,7 @@ typedef enum stages {west, east}Direction;
     [self createDirectionTriangle];
     
     
-    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(guideUserToStageWithCompassAnimation) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(guideUserToStageWithCompassAnimation) userInfo:nil repeats:YES];
     
 //    [self performSelector:@selector(rotateDirectionTriangle) withObject:nil afterDelay:3];
     
@@ -116,37 +116,32 @@ typedef enum stages {west, east}Direction;
 }
 
 
-
-//-(void)guideToStage:(Direction) d
-//{
-//    switch (d) {
-//        case west:
-//            NSLog(@"turn to the WEST to the stage");
-//            break;
-//        case east:
-//            NSLog(@"turn to the EAST to the stage");
-//            break;
-//        default:
-//            break;
-//    }
-//}
-
-
 -(void)guideUserToStageWithCompassAnimation
 {
+    
+    CABasicAnimation *rotate = [CABasicAnimation animationWithKeyPath:@"transform"];
+    rotate.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
+    rotate.toValue = [NSNumber numberWithFloat:((190*M_PI)/ -180)];
+    rotate.duration = 1.0;
+
     if ([self.hotStage  isEqual: @"Rock"]){
         NSLog(@"animate the compas for the hot stage ROCK");
+        
+        CATransform3D rotationTransform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
+//        CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+        rotate.toValue = [NSValue valueWithCATransform3D:rotationTransform];
+        rotate.duration = 1.0f;
+        rotate.cumulative = YES;
+        rotate.repeatCount = HUGE_VALF;
+    
+        
     } else if ([self.hotStage  isEqual: @"Hip-hop"]) {
         NSLog(@"animate the compass for the hot stage of Hip-HOP");
+
     }
-
-
     
-//    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
-//    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(40, 20)];
-//    anim.duration = 2.0;
-//
-//    [self.triangleShape addAnimation:anim forKey:@"anim"];
+    [self.triangleShape addAnimation:rotate forKey:@"rotation"];
+
     
 }
 
