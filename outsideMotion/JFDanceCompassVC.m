@@ -82,43 +82,32 @@ typedef enum stages {west, east}Direction;
 - (IBAction)rotateTheImage:(UIButton *)sender {
 
     CALayer *layer = _subView.layer;
-    
-//    CATransform3D perspective = CATransform3DIdentity;
-//    perspective.m34 = -1.0 / 1000.0;
-//    layer.transform = perspective;
-//    
-//    CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@"rotation.x"];
-//    CATransform3D curlXform = layer.transform;
-//    CATransform3D tx = CATransform3DMakeRotation(45*M_PI/360, 1, 0, 0);
-//    CATransform3D rotXform = CATransform3DRotate(curlXform, M_PI_2, 0.0, 1.0, 0.0);
-//    
-//    CATransform3D rotAndMoveLeft = CATransform3DTranslate(rotXform, 0.0, 0.0, -100.0);
-//    CATransform3D rotAndMoveRight = CATransform3DTranslate(rotXform, 0.0, 0.0, 100.0);
-//    
-//    anim.values = @[
-//                    [NSValue valueWithCATransform3D:curlXform],
-//                    [NSValue valueWithCATransform3D:tx],
-////                    [NSValue valueWithCATransform3D:rotXform],
-////                    [NSValue valueWithCATransform3D:rotXform],
-//                    ];
-//    
-//    anim.duration = 2.0;
-//    anim.repeatCount = CGFLOAT_MAX;
-//    anim.autoreverses = NO;
-//    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//    [layer addAnimation:anim forKey:@"xform"];
-    
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
-    anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
-    anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0)];
-    anim.duration = 1.0;
-    anim.repeatCount = CGFLOAT_MAX;
-    anim.autoreverses = YES;
-    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [layer addAnimation:anim forKey:@"xform"];
     
+    if ([self.hotStage isEqualToString:@"Rock"]){
+        NSLog(@"the hot stage is rock (from if)");
+        
+        anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
+        anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0)];
+        anim.duration = 1.0;
+        anim.repeatCount = CGFLOAT_MAX;
+        anim.autoreverses = YES;
+        anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        
 
+    } else if ([self.hotStage isEqualToString:@"Hip-hop"]){
+        
+        anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
+        anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, -1.0)];
+        anim.duration = 1.0;
+        anim.repeatCount = CGFLOAT_MAX;
+        anim.autoreverses = YES;
+        anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        
+    }
     
+    [layer addAnimation:anim forKey:@"xform"];
+
 }
 
 
