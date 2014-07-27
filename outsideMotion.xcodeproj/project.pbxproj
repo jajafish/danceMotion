@@ -27,6 +27,7 @@
 		E7E4F6931984D30900759733 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E4F6921984D30900759733 /* QuartzCore.framework */; };
 		E7E4F69519852EAA00759733 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = E7E4F69419852EAA00759733 /* compass.png */; };
 		E7E4F697198531C000759733 /* tree.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7E4F696198531C000759733 /* tree.jpg */; };
+		E7E4F69B198549C900759733 /* dcbg.png in Resources */ = {isa = PBXBuildFile; fileRef = E7E4F69A198549C900759733 /* dcbg.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		E7E4F6921984D30900759733 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E7E4F69419852EAA00759733 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
 		E7E4F696198531C000759733 /* tree.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tree.jpg; sourceTree = "<group>"; };
+		E7E4F69A198549C900759733 /* dcbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dcbg.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		E77D415A19844A820099C789 = {
 			isa = PBXGroup;
 			children = (
+				E7E4F69A198549C900759733 /* dcbg.png */,
 				E7E4F696198531C000759733 /* tree.jpg */,
 				E77D416C19844A820099C789 /* outsideMotion */,
 				E77D418B19844A820099C789 /* outsideMotionTests */,
@@ -279,6 +282,7 @@
 			files = (
 				E77D417F19844A820099C789 /* Images.xcassets in Resources */,
 				E7E4F69519852EAA00759733 /* compass.png in Resources */,
+				E7E4F69B198549C900759733 /* dcbg.png in Resources */,
 				E77D417119844A820099C789 /* InfoPlist.strings in Resources */,
 				E77D417A19844A820099C789 /* Main.storyboard in Resources */,
 				E7E4F697198531C000759733 /* tree.jpg in Resources */,

@@ -16,6 +16,8 @@ typedef enum stages {west, east}Direction;
 
 @property (strong, nonatomic) IBOutlet UIView *danceCompassLogo;
 
+@property (strong, nonatomic) UIImageView *backgroundSafariBrand;
+
 @property (strong, nonatomic) IBOutlet UISegmentedControl *hotStageSegment;
 @property (strong, nonatomic) CALayer *triangleShape;
 @property (strong, nonatomic) NSString *hotStage;
@@ -37,6 +39,12 @@ typedef enum stages {west, east}Direction;
 {
     [super viewDidLoad];
     
+    UIImage *backgroundView = [UIImage imageNamed:@"dcbg.png"];
+    self.backgroundSafariBrand = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 517)];
+    self.backgroundSafariBrand.image = backgroundView;
+    [self.view insertSubview:self.backgroundSafariBrand belowSubview:self.subView];
+                                
+    
     self.hotStageSegment = [[UISegmentedControl alloc]init];
     [self.view addSubview:self.hotStageSegment];
     self.hotStageSegment.frame = CGRectMake(5, 450, 100, 40);
@@ -44,9 +52,13 @@ typedef enum stages {west, east}Direction;
     [self.hotStageSegment insertSegmentWithTitle:@"hip-hop" atIndex:1 animated:YES];
     [self.hotStageSegment addTarget:self action:@selector(hotStageIs:) forControlEvents:UIControlEventValueChanged];
     
-    _subView.layer.contents = (id)[UIImage imageNamed:@"compass.png"].CGImage;
-    
 
+    
+    _subView.layer.contents = (id)[UIImage imageNamed:@"compass.png"].CGImage;
+
+
+    
+    
 }
 
 - (IBAction)hotStageIs:(UISegmentedControl *)sender {

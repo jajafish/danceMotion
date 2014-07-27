@@ -116,12 +116,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0v1-xw-scb">
-                                <rect key="frame" x="23" y="124" width="283" height="284"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ukT-eZ-Lwv">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="78"/>
+                                <rect key="frame" x="19" y="121" width="283" height="284"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -130,7 +125,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="qHX-O3-6Jr"/>
                     <connections>
-                        <outlet property="danceCompassLogo" destination="ukT-eZ-Lwv" id="OF7-dm-HoS"/>
                         <outlet property="subView" destination="0v1-xw-scb" id="80H-uN-H6O"/>
                     </connections>
                 </viewController>
