@@ -16,6 +16,8 @@
 @property (strong, nonatomic) CMMotionManager *motionManager;
 @property BOOL isAnalyzing;
 
+@property (strong, nonatomic) NSString *genreStageAttending;
+
 // ACCEL
 @property (strong, nonatomic) NSString *accelX;
 @property (strong, nonatomic) NSString *accelY;
@@ -44,7 +46,7 @@
     self.genreSegControl.frame = CGRectMake(30, 40, 100, 40);
     [self.genreSegControl insertSegmentWithTitle:@"rock" atIndex:0 animated:YES];
     [self.genreSegControl insertSegmentWithTitle:@"hip-hop" atIndex:1 animated:YES];
-    
+    [self.genreSegControl addTarget:self action:@selector(makeGenreStageSelection) forControlEvents:UIControlEventValueChanged];
     
     self.accelX = [[NSString alloc]init];
     self.accelY = [[NSString alloc]init];
@@ -57,17 +59,30 @@
     self.gyroX = [[NSString alloc]init];
     self.gyroY = [[NSString alloc]init];
     self.gyroZ = [[NSString alloc]init];
-    
-    
-    
-  
-
-
 
     self.motionManager = [[CMMotionManager alloc]init];
     
     self.recordingIndication.backgroundColor = [UIColor redColor];
 }
+
+
+-(void)makeGenreStageSelection
+{
+    
+    switch (self.genreSegControl.selectedSegmentIndex) {
+        case 0:
+            self.genreStageAttending = @"Rock";
+            break;
+        case 1:
+            self.genreStageAttending = @"Hip-hop";
+            break;
+        default:
+            break;
+    }
+    
+    NSLog(@"the stage im attending is %@", self.genreStageAttending);
+}
+
 
 - (void)didReceiveMemoryWarning
 {
