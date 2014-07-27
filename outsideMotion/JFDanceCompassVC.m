@@ -7,10 +7,33 @@
 //
 
 #import "JFDanceCompassVC.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface JFDanceCompassVC ()
+//typedef enum {
+//    kEast = NSRangeFromString(NSString *string = @"{90, 180}"),
+//    kSouth,
+//    kWest,
+//    kNorth
+//} GeneralDirection;
 
-@property (strong, nonatomic) CALayer *triangleShape;
+@interface JFDanceCompassVC () <CLLocationManagerDelegate>
+
+// UI Elements
+@property (weak, nonatomic) IBOutlet UIView *subView;
+@property (strong, nonatomic) IBOutlet UIView *danceCompassLogo;
+@property (strong, nonatomic) UIImageView *backgroundSafariBrand;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *hotStageSegment;
+@property (strong, nonatomic) NSString *hotStage;
+
+// Compass properties
+@property (strong, nonatomic) CLLocationManager *locationManager;
+
+
+@property NSRange eastRange;
+@property NSRange southRange;
+@property NSRange westRange;
+@property NSRange northRange;
+
 
 @end
 
@@ -29,87 +52,156 @@
 {
     [super viewDidLoad];
     
-    [self createTheCentralCircle];
+    // set up the background view
+    UIImage *backgroundView = [UIImage imageNamed:@"dcbg.png"];
+    self.backgroundSafariBrand = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 517)];
+    self.backgroundSafariBrand.image = backgroundView;
+    [self.view insertSubview:self.backgroundSafariBrand belowSubview:self.subView];
     
-//    [self createTheCompassPointer];
     
-    [self createDirectionTriangle];
+    // set up the segmenet control for genres
+    self.hotStageSegment = [[UISegmentedControl alloc]init];
+    [self.view addSubview:self.hotStageSegment];
+    self.hotStageSegment.frame = CGRectMake(5, 450, 100, 40);
+    [self.hotStageSegment insertSegmentWithTitle:@"rock" atIndex:0 animated:YES];
+    [self.hotStageSegment insertSegmentWithTitle:@"hip-hop" atIndex:1 animated:YES];
+    [self.hotStageSegment addTarget:self action:@selector(hotStageIs:) forControlEvents:UIControlEventValueChanged];
     
-    [self performSelector:@selector(rotateDirectionTriangle) withObject:nil afterDelay:3];
     
-    // Do any additional setup after loading the view.
+    // set up the spinning wheel
+    _subView.layer.contents = (id)[UIImage imageNamed:@"transTri.png"].CGImage;
+    [_subView.layer setOpaque:NO];
+    _subView.opaque = NO;
+    
+    
+    // set up the location manager
+    self.locationManager = [[CLLocationManager alloc]init];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingHeading];
+    [self.locationManager startUpdatingLocation];
+
+    
+    // set up the directional ranges
+    
+    NSString *eastString = @"{90, 179}";
+    self.eastRange = NSRangeFromString(eastString);
+    
+    NSString *southString = @"{180, 269}";
+    self.southRange = NSRangeFromString(southString);
+    
+    NSString *westString = @"{270, 359}";
+    self.westRange = NSRangeFromString(westString);
+    
+    NSString *northString = @"{360, 89}";
+    self.northRange = NSRangeFromString(northString);
+    
+
 }
 
--(void)createTheCentralCircle
+-(void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
-    int radius = 100;
-    CAShapeLayer *circle = [CAShapeLayer layer];
-    // Make a circular shape
-    circle.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 2.0*radius, 2.0*radius)
-                                             cornerRadius:radius].CGPath;
-    // Center the shape in self.view
-    circle.position = CGPointMake(CGRectGetMidX(self.view.frame)-radius,
-                                  CGRectGetMidY(self.view.frame)-radius);
     
-    // Configure the apperence of the circle
-    circle.fillColor = [UIColor clearColor].CGColor;
-    circle.strokeColor = [UIColor blackColor].CGColor;
-    circle.lineWidth = 5;
+    NSLog(@"COMPASS DATA");
+    NSLog(@"%@", [NSString stringWithFormat:@"%f", newHeading.magneticHeading]);
+    NSMutableArray *allHeadings = [[NSMutableArray alloc]init];
+    [allHeadings addObject:[NSString stringWithFormat:@"%f", newHeading.magneticHeading]];
     
-    // Add to parent layer
-    [self.view.layer addSublayer:circle];
-}
+    // get the average
+    
+    double count = [allHeadings count];
+    double sum;
+    
+    for (NSString *heading in allHeadings){
+        
+        double headingAsNum = [heading doubleValue];
+        sum += headingAsNum;
+        
+    }
+    
+    double averageOfHeadings = sum / count;
+    
+    NSLog(@"the average of the current reading is %f", averageOfHeadings);
+    
+    
+//    NSLog(@"%@", [NSString stringWithFormat:@"%f", newHeading.trueHeading]);
+    
+    
+    
+//    int currentMagneticHeading = [[NSString stringWithFormat:@"%f", newHeading.magneticHeading] intValue];
+    
+    
+//    if (NSLocationInRange(currentMagneticHeading, self.eastRange)){
+//        NSLog(@"facing east");
+//    } else if (NSLocationInRange(currentMagneticHeading, self.southRange)){
+//        NSLog(@"facing south");
+//    } else if (NSLocationInRange(currentMagneticHeading, self.westRange)){
+//        NSLog(@"facing west");
+//    } else if (NSLocationInRange(currentMagneticHeading, self.northRange)){
+//        NSLog(@"facing north");
+//    }
+//
+//    
+//    
+    
+    
+    
+//    NSLog(@"%@", [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.longitude]);
+//    NSLog(@"%@", [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.latitude]);
 
--(void)createTheCompassPointer
-{
-
-    CALayer *sublayer = [CALayer layer];
-    sublayer.backgroundColor = [UIColor grayColor].CGColor;
-    sublayer.shadowOffset = CGSizeMake(0, 3);
-    sublayer.frame = CGRectMake(self.view.center.x-8, self.view.center.y-96, 20, 192);
-    sublayer.borderColor = [UIColor blackColor].CGColor;
-    sublayer.borderWidth = 2.0;
-    sublayer.cornerRadius = 10.0;
-    
-
-    
-    [self.view.layer addSublayer:sublayer];
-    
-}
-
-
-
--(void)createDirectionTriangle
-{
-
-
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, NULL, -10, 175);
-    CGPathAddLineToPoint(path, NULL, 190, 75);
-    CGPathAddLineToPoint(path, NULL, 190, 275);
-    CGPathAddLineToPoint(path, NULL, -10, 175);
-    
-    CAShapeLayer *shapeLayer = [[CAShapeLayer alloc]init];
-    [shapeLayer setBounds:CGRectMake(0, 0, 50, 200)];
-    [shapeLayer setFillColor:[[UIColor blackColor]CGColor]];
-    [shapeLayer setPosition:CGPointMake(200, 200)];
-    [shapeLayer setPath:path];
-    
-    self.triangleShape = shapeLayer;
-    
-    [[[self view]layer]addSublayer:self.triangleShape];
-    
 }
 
 
--(void)rotateDirectionTriangle
+
+
+- (IBAction)hotStageIs:(UISegmentedControl *)sender {
+    
+    switch (self.hotStageSegment.selectedSegmentIndex) {
+        case 0:
+            self.hotStage = @"Rock";
+            break;
+        case 1:
+            self.hotStage = @"Hip-hop";
+            break;
+        default:
+            break;
+    }
+    
+    [self pointTheCompass];
+    
+    NSLog(@"the hot stage is %@", self.hotStage);
+    
+}
+
+
+-(void)pointTheCompass
 {
     
-    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
-    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(40, 20)];
-    anim.duration = 2.0;
+    CALayer *layer = _subView.layer;
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
     
-    [self.triangleShape addAnimation:anim forKey:@"anim"];
+    if ([self.hotStage isEqualToString:@"Rock"]){
+        NSLog(@"the hot stage is rock (from if)");
+        
+        anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
+        anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0)];
+        anim.duration = 1.0;
+        anim.repeatCount = CGFLOAT_MAX;
+        anim.autoreverses = YES;
+        anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        
+        
+    } else if ([self.hotStage isEqualToString:@"Hip-hop"]){
+        
+        anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
+        anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, -1.0)];
+        anim.duration = 1.0;
+        anim.repeatCount = CGFLOAT_MAX;
+        anim.autoreverses = YES;
+        anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        
+    }
+    
+    [layer addAnimation:anim forKey:@"xform"];
     
 }
 
@@ -119,20 +211,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)moveButtonPressed:(id)sender {
-    
-    [self rotateDirectionTriangle];
-}
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

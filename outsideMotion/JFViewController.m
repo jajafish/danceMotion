@@ -11,10 +11,14 @@
 
 @interface JFViewController ()
 
-
+@property (strong, nonatomic) UISegmentedControl *genreSegControl;
 @property (weak, nonatomic) IBOutlet UIView *recordingIndication;
+@property (strong, nonatomic) IBOutlet UIButton *stopRecordingButton;
+@property (strong, nonatomic) IBOutlet UILabel *recordingText;
 @property (strong, nonatomic) CMMotionManager *motionManager;
 @property BOOL isAnalyzing;
+
+@property (strong, nonatomic) NSString *genreStageAttending;
 
 // ACCEL
 @property (strong, nonatomic) NSString *accelX;
@@ -39,6 +43,12 @@
 {
     [super viewDidLoad];
     
+    self.genreSegControl = [[UISegmentedControl alloc]init];
+    [self.view addSubview:self.genreSegControl];
+    self.genreSegControl.frame = CGRectMake(10, 40, 300, 40);
+    [self.genreSegControl insertSegmentWithTitle:@"rock" atIndex:0 animated:YES];
+    [self.genreSegControl insertSegmentWithTitle:@"hip-hop" atIndex:1 animated:YES];
+    [self.genreSegControl addTarget:self action:@selector(makeGenreStageSelection) forControlEvents:UIControlEventValueChanged];
     
     self.accelX = [[NSString alloc]init];
     self.accelY = [[NSString alloc]init];
@@ -51,14 +61,33 @@
     self.gyroX = [[NSString alloc]init];
     self.gyroY = [[NSString alloc]init];
     self.gyroZ = [[NSString alloc]init];
-    
-
-    
 
     self.motionManager = [[CMMotionManager alloc]init];
     
     self.recordingIndication.backgroundColor = [UIColor redColor];
+    self.recordingText.text = @"choose a stage to record dance activity";
 }
+
+
+-(void)makeGenreStageSelection
+{
+    
+    switch (self.genreSegControl.selectedSegmentIndex) {
+        case 0:
+            self.genreStageAttending = @"Rock";
+            break;
+        case 1:
+            self.genreStageAttending = @"Hip-hop";
+            break;
+        default:
+            break;
+    }
+    
+    [self performSelector:@selector(analyzeUserMotion) withObject:nil afterDelay:2];
+    
+    NSLog(@"the stage im attending is %@", self.genreStageAttending);
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -66,11 +95,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)startRecordingPressed:(id)sender {
-    
-    [self performSelector:@selector(analyzeUserMotion) withObject:nil afterDelay:2];
-    
-}
 
 
 #pragma mark - MOTION RECORDING
@@ -79,6 +103,7 @@
 {
     
     self.recordingIndication.backgroundColor = [UIColor greenColor];
+    self.recordingText.text = @"tap here to stop recording";
     
     if ([self.motionManager isAccelerometerAvailable] && [self.motionManager isGyroAvailable])
     {
@@ -200,6 +225,7 @@
     [urlRequest setHTTPMethod:@"POST"];
     
     NSDictionary *jsonData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              self.genreStageAttending, @"stage",
                               [NSString stringWithFormat:@"%f", rootOfComb], @"intensity",
                               [NSString stringWithFormat:@"%f", timeStamp], @"timestamp",
                               userId, @"userid",
@@ -223,5 +249,13 @@
     
 }
 
+- (IBAction)stopRecordingPressed:(UIButton *)sender {
+    
+    [self.motionManager stopGyroUpdates];
+    [self.motionManager stopAccelerometerUpdates];
+    
+    self.recordingIndication.backgroundColor = [UIColor redColor];
+    self.recordingText.text = @"choose a stage to record dance activity";
+}
 
 @end
