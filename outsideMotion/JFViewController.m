@@ -16,23 +16,16 @@
 @property (strong, nonatomic) CMMotionManager *motionManager;
 @property BOOL isAnalyzing;
 
-// gyro
-@property (strong, nonatomic) NSMutableArray *allGyroX;
-@property (strong, nonatomic) NSMutableArray *allGyroY;
-@property (strong, nonatomic) NSMutableArray *allGyroZ;
-@property double averageOfGyroXValues;
-@property double averageOfGyroYValues;
-@property double averageOfGyroZValues;
-@property double averageOfAllGyroValues;
+// ACCEL
+@property (strong, nonatomic) NSString *accelX;
+@property (strong, nonatomic) NSString *accelY;
+@property (strong, nonatomic) NSString *accelZ;
 
-// accell
-@property (strong, nonatomic) NSMutableArray *allAccelX;
-@property (strong, nonatomic) NSMutableArray *allAccelY;
-@property (strong, nonatomic) NSMutableArray *allAccelZ;
-@property double averageOfAccelXValues;
-@property double averageOfAccelYValues;
-@property double averageOfAccelZValues;
-@property double averageOfAllAccelValues;
+// GYRO
+@property (strong, nonatomic) NSString *gyroX;
+@property (strong, nonatomic) NSString *gyroY;
+@property (strong, nonatomic) NSString *gyroZ;
+
 
 @end
 
@@ -42,21 +35,19 @@
 {
     [super viewDidLoad];
     
-    self.isAnalyzing = NO;
+    
+    self.accelX = [[NSString alloc]init];
+    self.accelY = [[NSString alloc]init];
+    self.accelZ = [[NSString alloc]init];
+    
+    self.gyroX = [[NSString alloc]init];
+    self.gyroY = [[NSString alloc]init];
+    self.gyroZ = [[NSString alloc]init];
+    
 
-    self.allGyroX = [[NSMutableArray alloc]init];
-    self.allGyroY = [[NSMutableArray alloc]init];
-    self.allGyroZ = [[NSMutableArray alloc]init];
-    
-    self.allAccelX = [[NSMutableArray alloc]init];
-    self.allAccelY = [[NSMutableArray alloc]init];
-    self.allAccelZ = [[NSMutableArray alloc]init];
-    
     self.motionManager = [[CMMotionManager alloc]init];
     
     self.recordingIndication.backgroundColor = [UIColor redColor];
-
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,170 +63,101 @@
 }
 
 
-// MOTION RECORDING
+#pragma mark - MOTION RECORDING
 
 -(void)analyzeUserMotion
 {
     
     self.recordingIndication.backgroundColor = [UIColor greenColor];
     
-    if ([self.motionManager isAccelerometerAvailable])
+    if ([self.motionManager isAccelerometerAvailable] && [self.motionManager isGyroAvailable])
     {
+     
+        // GYRO
+        
+        [self.motionManager setGyroUpdateInterval:1.0f / 1.0f];
+        
+        [self.motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
+            
+            self.gyroX = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.x];
+            
+            self.gyroY = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.y];
+            
+            self.gyroZ = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.z];
+            
+            NSLog(@"the gyro values are %@, %@, and %@", self.gyroX, self.gyroY, self.gyroZ);
+            
+        }];
+        
+        
+        // ACCEL
+        
         [self.motionManager setAccelerometerUpdateInterval:1.0f / 1.0f];
         
         [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
             
-            NSString *accelX = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.x];
-            [self.allAccelX addObject:accelX];
+            self.accelX = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.x];
             
-            NSString *accelY = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.y];
-            [self.allAccelY addObject:accelY];
+            self.accelY = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.y];
             
-            NSString *accelZ = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.z];
-            [self.allAccelZ addObject:accelZ];
+            self.accelZ = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.z];
             
-            [self calculateAndSendNormOfMotionActivity:(NSString *)accelX :(NSString *)accelY :(NSString *)accelZ];
-        
+            [self calculateAndSendNormOfMotionActivity:self.accelX :self.accelY :self.accelZ :self.gyroX :self.gyroY :self.gyroZ];
+
         }];
-        
+    
     }
-    
-    
-    
-    
-//    [self performSelector:@selector(stopRecordingPressed:) withObject:nil afterDelay:1];
-    
+
 }
 
 
-- (IBAction)stopRecordingPressed:(id)sender {
-    
-    [self.motionManager stopGyroUpdates];
-    
-
-    
-    // ACCEL
-    [self createAverageOfAccelXValues];
-    [self createAverageOfAccelYValues];
-    [self createAverageOfAccelZValues];
-    [self averageAllAccelAverages];
-    
-    
-}
+#pragma mark - FINAL CALCULATIONS
 
 
-
-
-// ACCEL ANALYSIS
-
-
--(void)createAverageOfAccelXValues
+-(void)calculateAndSendNormOfMotionActivity:(NSString *)accelXValue :(NSString *)accelYValue :(NSString *)accelZValue :(NSString *)gyroXValue :(NSString *)gyroYValue :(NSString *)gyroZValue
 {
     
-    double arrayCount = [self.allAccelX count];
+    // conver strings to doubles
     
-    double sumOfAllXValues;
+    // accel
+    double accelX = [accelXValue doubleValue];
+    double accelY = [accelYValue doubleValue];
+    double accelZ = [accelZValue doubleValue];
+    
+    // gyro
+    double gyroX = [gyroXValue doubleValue];
+    double gyroY = [gyroYValue doubleValue];
+    double gyroZ = [gyroZValue doubleValue];
     
     
-    for (NSString *x in self.allAccelX){
-        
-        double xdouble = [x doubleValue];
-        
-        sumOfAllXValues += xdouble;
-        
-    }
+    // norm of gyro
+    // divide each component value by the norm
     
-    self.averageOfAccelXValues = sumOfAllXValues / arrayCount;
+    double gyroX2 = pow(gyroX, 2);
+    double gyroY2 = pow(gyroY, 2);
+    double gyroZ2 = pow(gyroZ, 2);
+    double combOfGyroSq = (gyroX2 + gyroY2 + gyroZ2);
+    double rootOfGyroComb = sqrt(combOfGyroSq);
     
-//    NSLog(@"the ACCEL x values are %@", self.allAccelX);
+    double gyroXDivNorm = gyroX / rootOfGyroComb;
+    double gyroYDivNorm = gyroY / rootOfGyroComb;
+    double gyroZDivNorm = gyroZ / rootOfGyroComb;
     
-    //    NSLog(@"the sum of all the x values is %f", sumOfAllXValues);
-    
-//    NSLog(@"the average of all the ACCEL x values is %f", self.averageOfAccelXValues);
-    
-}
 
-
--(void)createAverageOfAccelYValues
-{
+    // subtract gyro values from accell values
     
-    double arrayCount = [self.allAccelY count];
-    
-    double sumOfAllYValues;
+    double x = accelX - gyroXDivNorm;
+    double y = accelY - gyroYDivNorm;
+    double z = accelZ - gyroZDivNorm;
     
     
-    for (NSString *y in self.allAccelY){
-        
-        double ydouble = [y doubleValue];
-        
-        sumOfAllYValues += ydouble;
-        
-    }
-    
-    self.averageOfAccelYValues = sumOfAllYValues / arrayCount;
-    
-//    NSLog(@"the ACCEL Y values are %@", self.allAccelY);
-    
-    //    NSLog(@"the sum of all the y values is %f", sumOfAllYValues);
-    
-//    NSLog(@"the average of all the ACCEL y values is %f", self.averageOfAccelYValues);
-    
-}
-
-
-
--(void)createAverageOfAccelZValues
-{
-    
-    double arrayCount = [self.allAccelZ count];
-    
-    double sumOfAllZValues;
-    
-    for (NSString *z in self.allAccelZ){
-        double zDouble = [z doubleValue];
-        
-        sumOfAllZValues += zDouble;
-    }
-    
-    self.averageOfAccelZValues = sumOfAllZValues / arrayCount;
-    
-//    NSLog(@"the ACCEL z values are %@", self.allAccelZ);
-    //    NSLog(@"the sum of all the z values is %f", sumOfAllZValues);
-//    NSLog(@"the average of all the z ACCEL values is %f", self.averageOfAccelZValues);
-    
-}
-
-
--(void)averageAllAccelAverages
-{
-    
-    double addedAccelValues = self.averageOfAccelXValues + self.averageOfAccelYValues + self.averageOfAccelZValues;
-    
-    self.averageOfAllAccelValues = addedAccelValues / 3;
-    
-//    NSLog(@"the average of ALL ACCEL values is %f", self.averageOfAllAccelValues);
-    
-}
-
-
-
--(void)calculateAndSendNormOfMotionActivity:(NSString *)accelXValue :(NSString *)accelYValue :(NSString *)accelZValue
-{
-    
-    // calculate the norm
-
-    double x = [accelXValue doubleValue];
-    double y = [accelYValue doubleValue];
-    double z = [accelZValue doubleValue];
+    // create the norm of the new consolidated values
     
     double x2 = pow(x, 2);
     double y2 = pow(y, 2);
     double z2 = pow(z, 2);
-    
     double combOfSq = (x2 + y2 + z2);
-    
     double rootOfComb = sqrt(combOfSq);
-    
     NSLog(@"the root of the comb is %f", rootOfComb);
 
     
