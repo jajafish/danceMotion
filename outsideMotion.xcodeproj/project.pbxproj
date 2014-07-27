@@ -23,6 +23,8 @@
 		E77D419219844A820099C789 /* outsideMotionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E77D419119844A820099C789 /* outsideMotionTests.m */; };
 		E77D419C19844B0D0099C789 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D419B19844B0D0099C789 /* CoreMotion.framework */; };
 		E7E4F68B1984C7BD00759733 /* JFDanceMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E4F68A1984C7BD00759733 /* JFDanceMapVC.m */; };
+		E7E4F6911984CECA00759733 /* JFDanceCompassVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E4F6901984CECA00759733 /* JFDanceCompassVC.m */; };
+		E7E4F6931984D30900759733 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E4F6921984D30900759733 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,9 @@
 		E77D419B19844B0D0099C789 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		E7E4F6891984C7BD00759733 /* JFDanceMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFDanceMapVC.h; sourceTree = "<group>"; };
 		E7E4F68A1984C7BD00759733 /* JFDanceMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFDanceMapVC.m; sourceTree = "<group>"; };
+		E7E4F68F1984CECA00759733 /* JFDanceCompassVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFDanceCompassVC.h; sourceTree = "<group>"; };
+		E7E4F6901984CECA00759733 /* JFDanceCompassVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFDanceCompassVC.m; sourceTree = "<group>"; };
+		E7E4F6921984D30900759733 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7E4F6931984D30900759733 /* QuartzCore.framework in Frameworks */,
 				E77D419C19844B0D0099C789 /* CoreMotion.framework in Frameworks */,
 				E77D416919844A820099C789 /* CoreGraphics.framework in Frameworks */,
 				E77D416B19844A820099C789 /* UIKit.framework in Frameworks */,
@@ -107,6 +113,7 @@
 		E77D416519844A820099C789 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E7E4F6921984D30900759733 /* QuartzCore.framework */,
 				E77D419B19844B0D0099C789 /* CoreMotion.framework */,
 				E77D416619844A820099C789 /* Foundation.framework */,
 				E77D416819844A820099C789 /* CoreGraphics.framework */,
@@ -122,10 +129,7 @@
 				E77D417519844A820099C789 /* JFAppDelegate.h */,
 				E77D417619844A820099C789 /* JFAppDelegate.m */,
 				E77D417819844A820099C789 /* Main.storyboard */,
-				E77D417B19844A820099C789 /* JFViewController.h */,
-				E77D417C19844A820099C789 /* JFViewController.m */,
-				E7E4F6891984C7BD00759733 /* JFDanceMapVC.h */,
-				E7E4F68A1984C7BD00759733 /* JFDanceMapVC.m */,
+				E7E4F68C1984CEA700759733 /* vc */,
 				E77D417E19844A820099C789 /* Images.xcassets */,
 				E77D416D19844A820099C789 /* Supporting Files */,
 			);
@@ -159,6 +163,35 @@
 				E77D418E19844A820099C789 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E7E4F68C1984CEA700759733 /* vc */ = {
+			isa = PBXGroup;
+			children = (
+				E77D417B19844A820099C789 /* JFViewController.h */,
+				E77D417C19844A820099C789 /* JFViewController.m */,
+				E7E4F68E1984CEB800759733 /* compass */,
+				E7E4F68D1984CEB300759733 /* map */,
+			);
+			name = vc;
+			sourceTree = "<group>";
+		};
+		E7E4F68D1984CEB300759733 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				E7E4F6891984C7BD00759733 /* JFDanceMapVC.h */,
+				E7E4F68A1984C7BD00759733 /* JFDanceMapVC.m */,
+			);
+			name = map;
+			sourceTree = "<group>";
+		};
+		E7E4F68E1984CEB800759733 /* compass */ = {
+			isa = PBXGroup;
+			children = (
+				E7E4F68F1984CECA00759733 /* JFDanceCompassVC.h */,
+				E7E4F6901984CECA00759733 /* JFDanceCompassVC.m */,
+			);
+			name = compass;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +294,7 @@
 			files = (
 				E77D417719844A820099C789 /* JFAppDelegate.m in Sources */,
 				E77D417D19844A820099C789 /* JFViewController.m in Sources */,
+				E7E4F6911984CECA00759733 /* JFDanceCompassVC.m in Sources */,
 				E77D417319844A820099C789 /* main.m in Sources */,
 				E7E4F68B1984C7BD00759733 /* JFDanceMapVC.m in Sources */,
 			);
