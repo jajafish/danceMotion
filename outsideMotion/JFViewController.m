@@ -217,7 +217,7 @@
     
 //    NSString *gershonIP = @"192.168.8.221";
     
-    NSString *serviceURL = @"http://192.168.8.219:3000/api";
+    NSString *serviceURL = @"http://ec2-54-80-53-189.compute-1.amazonaws.com:3000/api";
     
     NSURL * url = [NSURL URLWithString:serviceURL];
     NSMutableURLRequest * urlRequest = [NSMutableURLRequest requestWithURL:url];
@@ -251,6 +251,7 @@
     [dataTask resume];
     
 }
+
 
 - (IBAction)stopRecordingPressed:(UIButton *)sender {
     

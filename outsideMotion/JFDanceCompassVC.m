@@ -95,14 +95,16 @@
     NSString *northString = @"{360, 89}";
     self.northRange = NSRangeFromString(northString);
     
+    
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(grabStageRatingData) userInfo:nil repeats:YES];
 
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
     
-    NSLog(@"COMPASS DATA");
-    NSLog(@"%@", [NSString stringWithFormat:@"%f", newHeading.magneticHeading]);
+//    NSLog(@"COMPASS DATA");
+//    NSLog(@"%@", [NSString stringWithFormat:@"%f", newHeading.magneticHeading]);
     NSMutableArray *allHeadings = [[NSMutableArray alloc]init];
     [allHeadings addObject:[NSString stringWithFormat:@"%f", newHeading.magneticHeading]];
     
@@ -120,7 +122,7 @@
     
     double averageOfHeadings = sum / count;
     
-    NSLog(@"the average of the current reading is %f", averageOfHeadings);
+//    NSLog(@"the average of the current reading is %f", averageOfHeadings);
     
     
 //    NSLog(@"%@", [NSString stringWithFormat:@"%f", newHeading.trueHeading]);
@@ -144,10 +146,41 @@
 //    
     
     
-    
 //    NSLog(@"%@", [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.longitude]);
 //    NSLog(@"%@", [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.latitude]);
 
+}
+
+
+
+
+
+
+
+
+
+    
+    
+-(void)grabStageRatingData
+{
+    
+    NSLog(@"this should run");
+    
+    NSString *serviceURL = @"http://ec2-54-80-53-189.compute-1.amazonaws.com:3000/api";
+    NSURL *url = [NSURL URLWithString:serviceURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSDictionary *list =[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        
+        NSLog(@"here is the data %@", list);
+    }];
+    
+    [task resume];
+    
 }
 
 
@@ -168,7 +201,7 @@
     
     [self pointTheCompass];
     
-    NSLog(@"the hot stage is %@", self.hotStage);
+//    NSLog(@"the hot stage is %@", self.hotStage);
     
 }
 
@@ -204,6 +237,9 @@
     [layer addAnimation:anim forKey:@"xform"];
     
 }
+
+
+
 
 
 - (void)didReceiveMemoryWarning

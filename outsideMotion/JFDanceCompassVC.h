@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JFDanceCompassVC : UIViewController
+@interface JFDanceCompassVC : UIViewController <NSURLSessionDelegate, NSURLSessionDataDelegate, NSURLSessionTaskDelegate>
 
 @end
