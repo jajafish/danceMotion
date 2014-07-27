@@ -35,8 +35,6 @@
 @property NSRange northRange;
 
 
-
-
 @end
 
 @implementation JFDanceCompassVC
@@ -105,25 +103,45 @@
     
     NSLog(@"COMPASS DATA");
     NSLog(@"%@", [NSString stringWithFormat:@"%f", newHeading.magneticHeading]);
-    NSLog(@"%@", [NSString stringWithFormat:@"%f", newHeading.trueHeading]);
+    NSMutableArray *allHeadings = [[NSMutableArray alloc]init];
+    [allHeadings addObject:[NSString stringWithFormat:@"%f", newHeading.magneticHeading]];
     
+    // get the average
     
+    double count = [allHeadings count];
+    double sum;
     
-    int currentMagneticHeading = [[NSString stringWithFormat:@"%f", newHeading.magneticHeading] intValue];
-    
-    
-    if (NSLocationInRange(currentMagneticHeading, self.eastRange)){
-        NSLog(@"facing east");
-    } else if (NSLocationInRange(currentMagneticHeading, self.southRange)){
-        NSLog(@"facing south");
-    } else if (NSLocationInRange(currentMagneticHeading, self.westRange)){
-        NSLog(@"facing west");
-    } else if (NSLocationInRange(currentMagneticHeading, self.northRange)){
-        NSLog(@"facing north");
+    for (NSString *heading in allHeadings){
+        
+        double headingAsNum = [heading doubleValue];
+        sum += headingAsNum;
+        
     }
-
+    
+    double averageOfHeadings = sum / count;
+    
+    NSLog(@"the average of the current reading is %f", averageOfHeadings);
     
     
+//    NSLog(@"%@", [NSString stringWithFormat:@"%f", newHeading.trueHeading]);
+    
+    
+    
+//    int currentMagneticHeading = [[NSString stringWithFormat:@"%f", newHeading.magneticHeading] intValue];
+    
+    
+//    if (NSLocationInRange(currentMagneticHeading, self.eastRange)){
+//        NSLog(@"facing east");
+//    } else if (NSLocationInRange(currentMagneticHeading, self.southRange)){
+//        NSLog(@"facing south");
+//    } else if (NSLocationInRange(currentMagneticHeading, self.westRange)){
+//        NSLog(@"facing west");
+//    } else if (NSLocationInRange(currentMagneticHeading, self.northRange)){
+//        NSLog(@"facing north");
+//    }
+//
+//    
+//    
     
     
     
