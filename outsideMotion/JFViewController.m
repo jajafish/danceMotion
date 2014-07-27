@@ -11,7 +11,7 @@
 
 @interface JFViewController ()
 
-
+@property (strong, nonatomic) UISegmentedControl *genreSegControl;
 @property (weak, nonatomic) IBOutlet UIView *recordingIndication;
 @property (strong, nonatomic) CMMotionManager *motionManager;
 @property BOOL isAnalyzing;
@@ -39,6 +39,12 @@
 {
     [super viewDidLoad];
     
+    self.genreSegControl = [[UISegmentedControl alloc]init];
+    [self.view addSubview:self.genreSegControl];
+    self.genreSegControl.frame = CGRectMake(30, 40, 100, 40);
+    [self.genreSegControl insertSegmentWithTitle:@"rock" atIndex:0 animated:YES];
+    [self.genreSegControl insertSegmentWithTitle:@"hip-hop" atIndex:1 animated:YES];
+    
     
     self.accelX = [[NSString alloc]init];
     self.accelY = [[NSString alloc]init];
@@ -52,8 +58,11 @@
     self.gyroY = [[NSString alloc]init];
     self.gyroZ = [[NSString alloc]init];
     
-
     
+    
+  
+
+
 
     self.motionManager = [[CMMotionManager alloc]init];
     
