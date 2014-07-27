@@ -14,6 +14,8 @@ typedef enum stages {west, east}Direction;
 
 @property (weak, nonatomic) IBOutlet UIView *subView;
 
+@property (strong, nonatomic) IBOutlet UIView *danceCompassLogo;
+
 @property (strong, nonatomic) IBOutlet UISegmentedControl *hotStageSegment;
 @property (strong, nonatomic) CALayer *triangleShape;
 @property (strong, nonatomic) NSString *hotStage;
@@ -45,19 +47,6 @@ typedef enum stages {west, east}Direction;
     _subView.layer.contents = (id)[UIImage imageNamed:@"compass.png"].CGImage;
     
 
-    
-    
-//    self.compassImageView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 140, 240, 240)];
-//    self.compassImageView.backgroundColor = [UIColor greenColor];
-//    UIImage *img = [UIImage imageNamed:@"tree.jpg"];
-//    self.compassImageView.image = img;
-//    
-//
-//    CGRect frameOfCompassImageView = self.compassImageView.frame;
-//    NSLog(@"the frame of the compass image view is %@", NSStringFromCGRect(frameOfCompassImageView));
-    
-    
-
 }
 
 - (IBAction)hotStageIs:(UISegmentedControl *)sender {
@@ -73,14 +62,16 @@ typedef enum stages {west, east}Direction;
             break;
     }
     
+    [self pointTheCompass];
+    
     NSLog(@"the hot stage is %@", self.hotStage);
     
 }
 
 
-
-- (IBAction)rotateTheImage:(UIButton *)sender {
-
+-(void)pointTheCompass
+{
+    
     CALayer *layer = _subView.layer;
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
     
@@ -94,7 +85,7 @@ typedef enum stages {west, east}Direction;
         anim.autoreverses = YES;
         anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         
-
+        
     } else if ([self.hotStage isEqualToString:@"Hip-hop"]){
         
         anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
@@ -107,10 +98,10 @@ typedef enum stages {west, east}Direction;
     }
     
     [layer addAnimation:anim forKey:@"xform"];
-
+    
+    
+    
 }
-
-
 
 
 
