@@ -12,6 +12,7 @@ typedef enum stages {west, east}Direction;
 
 @interface JFDanceCompassVC ()
 
+@property (strong, nonatomic) IBOutlet UIImageView *compassImageView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *hotStageSegment;
 @property (strong, nonatomic) CALayer *triangleShape;
 @property (strong, nonatomic) NSString *hotStage;
@@ -40,10 +41,20 @@ typedef enum stages {west, east}Direction;
     [self.hotStageSegment insertSegmentWithTitle:@"hip-hop" atIndex:1 animated:YES];
     [self.hotStageSegment addTarget:self action:@selector(hotStageIs:) forControlEvents:UIControlEventValueChanged];
     
-    [self createTheCentralCircle];
+//    [self createTheCentralCircle];
     
     
-    [self createDirectionTriangle];
+//    [self createDirectionTriangle];
+    
+    
+    self.compassImageView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 140, 240, 240)];
+    self.compassImageView.backgroundColor = [UIColor greenColor];
+    UIImage *img = [UIImage imageNamed:@"tree.jpg"];
+    self.compassImageView.image = img;
+    
+
+    CGRect frameOfCompassImageView = self.compassImageView.frame;
+    NSLog(@"the frame of the compass image view is %@", NSStringFromCGRect(frameOfCompassImageView));
     
     
     [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(guideUserToStageWithCompassAnimation) userInfo:nil repeats:YES];
@@ -69,7 +80,6 @@ typedef enum stages {west, east}Direction;
     NSLog(@"the hot stage is %@", self.hotStage);
     
 }
-
 
 
 -(void)createTheCentralCircle
