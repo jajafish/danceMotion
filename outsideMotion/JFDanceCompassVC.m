@@ -35,7 +35,7 @@ typedef enum stages {west, east}Direction;
     
     self.hotStageSegment = [[UISegmentedControl alloc]init];
     [self.view addSubview:self.hotStageSegment];
-    self.hotStageSegment.frame = CGRectMake(30, 40, 100, 40);
+    self.hotStageSegment.frame = CGRectMake(5, 450, 100, 40);
     [self.hotStageSegment insertSegmentWithTitle:@"rock" atIndex:0 animated:YES];
     [self.hotStageSegment insertSegmentWithTitle:@"hip-hop" atIndex:1 animated:YES];
     [self.hotStageSegment addTarget:self action:@selector(hotStageIs:) forControlEvents:UIControlEventValueChanged];
@@ -44,6 +44,9 @@ typedef enum stages {west, east}Direction;
     
     
     [self createDirectionTriangle];
+    
+    
+    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(guideUserToStageWithCompassAnimation) userInfo:nil repeats:YES];
     
 //    [self performSelector:@selector(rotateDirectionTriangle) withObject:nil afterDelay:3];
     
@@ -114,31 +117,38 @@ typedef enum stages {west, east}Direction;
 
 
 
--(void)guideToStage:(Direction) d
-{
-    switch (d) {
-        case west:
-            NSLog(@"turn to the WEST to the stage");
-            break;
-        case east:
-            NSLog(@"turn to the EAST to the stage");
-            break;
-        default:
-            break;
-    }
-}
-
-
-//-(void)guideUserToStageWithCompassAnimationForDirection:(Direction)
+//-(void)guideToStage:(Direction) d
 //{
-//    
+//    switch (d) {
+//        case west:
+//            NSLog(@"turn to the WEST to the stage");
+//            break;
+//        case east:
+//            NSLog(@"turn to the EAST to the stage");
+//            break;
+//        default:
+//            break;
+//    }
+//}
+
+
+-(void)guideUserToStageWithCompassAnimation
+{
+    if ([self.hotStage  isEqual: @"Rock"]){
+        NSLog(@"animate the compas for the hot stage ROCK");
+    } else if ([self.hotStage  isEqual: @"Hip-hop"]) {
+        NSLog(@"animate the compass for the hot stage of Hip-HOP");
+    }
+
+
+    
 //    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
 //    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(40, 20)];
 //    anim.duration = 2.0;
-//    
+//
 //    [self.triangleShape addAnimation:anim forKey:@"anim"];
-//    
-//}
+    
+}
 
 
 
