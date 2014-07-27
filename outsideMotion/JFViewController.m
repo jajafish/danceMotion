@@ -56,6 +56,7 @@
     
     self.recordingIndication.backgroundColor = [UIColor redColor];
 
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -220,6 +221,8 @@
 
 -(void)calculateAndSendNormOfMotionActivity:(NSString *)accelXValue :(NSString *)accelYValue :(NSString *)accelZValue
 {
+    
+    // calculate the norm
 
     double x = [accelXValue doubleValue];
     double y = [accelYValue doubleValue];
@@ -234,26 +237,60 @@
     double rootOfComb = sqrt(combOfSq);
     
     NSLog(@"the root of the comb is %f", rootOfComb);
+
     
+    // configure the extra post data
+    
+    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    NSString *userId = @"jared fishman";
+    
+
+    // make the post request
+
+    NSError *error;
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+    
+    NSString *serviceURL = @"http://192.168.8.221:3000/api";
+    
+    NSURL * url = [NSURL URLWithString:serviceURL];
+    NSMutableURLRequest * urlRequest = [NSMutableURLRequest requestWithURL:url];
+    
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    NSDictionary *jsonData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              [NSString stringWithFormat:@"%f", rootOfComb], @"intensity",
+                              [NSString stringWithFormat:@"%f", timeStamp], @"timestamp",
+                              userId, @"userid",
+                             nil];
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:jsonData options:0 error:&error];
+    [urlRequest setHTTPBody:postData];
+    
+    NSURLSessionDataTask * dataTask =[defaultSession dataTaskWithRequest:urlRequest
+                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                           NSLog(@"Response:%@ %@\n", response, error);
+                                                           if(error == nil)
+                                                           {
+                                                               NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                               NSLog(@"Data = %@",text);
+                                                           }
+                                                           
+                                                       }];
+    
+    
+    [dataTask resume];
+    
+
 }
 
--(void)calculateNormOfMotionValues
-{
-    
-    
-    double result = pow(3, 2);
-    NSLog(@"%f", result);
-
-    
-    
-}
 
 
 
-- (IBAction)normPressed:(id)sender {
-    
-    [self calculateNormOfMotionValues];
-}
+
 
 
 

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JFViewController : UIViewController
+@interface JFViewController : UIViewController <NSURLSessionDelegate, NSURLSessionDataDelegate, NSURLSessionTaskDelegate>
 
 @end
