@@ -284,17 +284,7 @@
     
     [dataTask resume];
     
-
 }
-
-
-
-
-
-
-
-
-
 
 
 @end
