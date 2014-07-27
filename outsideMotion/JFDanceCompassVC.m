@@ -10,6 +10,7 @@
 
 @interface JFDanceCompassVC ()
 
+@property (strong, nonatomic) CALayer *triangleShape;
 
 @end
 
@@ -33,6 +34,8 @@
 //    [self createTheCompassPointer];
     
     [self createDirectionTriangle];
+    
+    [self performSelector:@selector(rotateDirectionTriangle) withObject:nil afterDelay:3];
     
     // Do any additional setup after loading the view.
 }
@@ -67,6 +70,9 @@
     sublayer.borderColor = [UIColor blackColor].CGColor;
     sublayer.borderWidth = 2.0;
     sublayer.cornerRadius = 10.0;
+    
+
+    
     [self.view.layer addSublayer:sublayer];
     
 }
@@ -89,7 +95,21 @@
     [shapeLayer setPosition:CGPointMake(200, 200)];
     [shapeLayer setPath:path];
     
-    [[[self view]layer]addSublayer:shapeLayer];
+    self.triangleShape = shapeLayer;
+    
+    [[[self view]layer]addSublayer:self.triangleShape];
+    
+}
+
+
+-(void)rotateDirectionTriangle
+{
+    
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
+    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(40, 20)];
+    anim.duration = 2.0;
+    
+    [self.triangleShape addAnimation:anim forKey:@"anim"];
     
 }
 
@@ -98,6 +118,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)moveButtonPressed:(id)sender {
+    
+    [self rotateDirectionTriangle];
 }
 
 /*
