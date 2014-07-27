@@ -39,6 +39,7 @@ typedef enum stages {west, east}Direction;
 {
     [super viewDidLoad];
     
+    
     UIImage *backgroundView = [UIImage imageNamed:@"dcbg.png"];
     self.backgroundSafariBrand = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 517)];
     self.backgroundSafariBrand.image = backgroundView;
@@ -54,7 +55,9 @@ typedef enum stages {west, east}Direction;
     
 
     
-    _subView.layer.contents = (id)[UIImage imageNamed:@"compass.png"].CGImage;
+    _subView.layer.contents = (id)[UIImage imageNamed:@"transTri.png"].CGImage;
+    [_subView.layer setOpaque:NO];
+    _subView.opaque = NO;
 
 
     
