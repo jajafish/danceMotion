@@ -156,9 +156,6 @@
 
 
 
-
-
-
     
     
 -(void)grabStageRatingData
@@ -176,7 +173,27 @@
         
         NSDictionary *list =[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         
-        NSLog(@"here is the data %@", list);
+//        NSLog(@"here is the data %@", list);
+        
+        double hipHopStageAmp = [list[@"Hip-hop"] doubleValue];
+        double rockStageAmp = [list[@"Rock"] doubleValue];
+        
+//        NSLog(@"rock stage amp is %f", rockStageAmp);
+//        NSLog(@"hip hop stage amp is %f", hipHopStageAmp);
+    
+        
+        if (rockStageAmp > hipHopStageAmp){
+            self.hotStage = @"Rock";
+            [self pointTheCompassToEast];
+            NSLog(@"the rock stage is hotter");
+            
+        } else if (hipHopStageAmp > rockStageAmp) {
+            self.hotStage = @"Hip-hop";
+            [self pointTheCompassToWest];
+            NSLog(@"the hip hop stage is hotter");
+        }
+        
+        
     }];
     
     [task resume];
@@ -186,53 +203,89 @@
 
 
 
-- (IBAction)hotStageIs:(UISegmentedControl *)sender {
-    
-    switch (self.hotStageSegment.selectedSegmentIndex) {
-        case 0:
-            self.hotStage = @"Rock";
-            break;
-        case 1:
-            self.hotStage = @"Hip-hop";
-            break;
-        default:
-            break;
-    }
-    
-    [self pointTheCompass];
-    
-//    NSLog(@"the hot stage is %@", self.hotStage);
-    
-}
+//- (IBAction)hotStageIs:(UISegmentedControl *)sender {
+//    
+//    switch (self.hotStageSegment.selectedSegmentIndex) {
+//        case 0:
+//            self.hotStage = @"Rock";
+//            break;
+//        case 1:
+//            self.hotStage = @"Hip-hop";
+//            break;
+//        default:
+//            break;
+//    }
+//    
+//
+//    
+////    NSLog(@"the hot stage is %@", self.hotStage);
+//    
+//}
 
 
--(void)pointTheCompass
+//-(void)pointTheCompass
+//{
+//    
+//    CALayer *layer = _subView.layer;
+//    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
+//    
+//    if ([self.hotStage isEqualToString:@"Rock"]){
+//        NSLog(@"the hot stage is rock (from if)");
+//        
+//        anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
+//        anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0)];
+//        anim.duration = 1.0;
+//        anim.repeatCount = CGFLOAT_MAX;
+//        anim.autoreverses = YES;
+//        anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//        
+//        
+//    } else if ([self.hotStage isEqualToString:@"Hip-hop"]){
+//        
+//        anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
+//        anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, -1.0)];
+//        anim.duration = 1.0;
+//        anim.repeatCount = CGFLOAT_MAX;
+//        anim.autoreverses = YES;
+//        anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//        
+//    }
+//    
+//    [layer addAnimation:anim forKey:@"xform"];
+//    
+//}
+
+
+-(void)pointTheCompassToWest
 {
     
     CALayer *layer = _subView.layer;
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
     
-    if ([self.hotStage isEqualToString:@"Rock"]){
-        NSLog(@"the hot stage is rock (from if)");
-        
-        anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
-        anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0)];
-        anim.duration = 1.0;
-        anim.repeatCount = CGFLOAT_MAX;
-        anim.autoreverses = YES;
-        anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        
-        
-    } else if ([self.hotStage isEqualToString:@"Hip-hop"]){
-        
-        anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
-        anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, -1.0)];
-        anim.duration = 1.0;
-        anim.repeatCount = CGFLOAT_MAX;
-        anim.autoreverses = YES;
-        anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        
-    }
+    anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
+    anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0)];
+    anim.duration = 1.5;
+    anim.repeatCount = CGFLOAT_MAX;
+    anim.autoreverses = NO;
+    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    
+    
+    [layer addAnimation:anim forKey:@"xform"];
+    
+}
+
+-(void)pointTheCompassToEast
+{
+    
+    CALayer *layer = _subView.layer;
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
+    
+    anim.fromValue = [NSValue valueWithCATransform3D:layer.transform];
+    anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, -1.0)];
+    anim.duration = 1.5;
+    anim.repeatCount = CGFLOAT_MAX;
+    anim.autoreverses = NO;
+    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     
     [layer addAnimation:anim forKey:@"xform"];
     
