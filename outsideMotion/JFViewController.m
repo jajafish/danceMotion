@@ -224,6 +224,7 @@
     [urlRequest setHTTPMethod:@"POST"];
     
     NSDictionary *jsonData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              self.genreStageAttending, @"stage",
                               [NSString stringWithFormat:@"%f", rootOfComb], @"intensity",
                               [NSString stringWithFormat:@"%f", timeStamp], @"timestamp",
                               userId, @"userid",

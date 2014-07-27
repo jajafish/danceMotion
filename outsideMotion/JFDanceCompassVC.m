@@ -8,9 +8,13 @@
 
 #import "JFDanceCompassVC.h"
 
+typedef enum stages {west, east}Direction;
+
 @interface JFDanceCompassVC ()
 
+@property (strong, nonatomic) IBOutlet UISegmentedControl *hotStageSegment;
 @property (strong, nonatomic) CALayer *triangleShape;
+@property (strong, nonatomic) NSString *hotStage;
 
 @end
 
@@ -29,16 +33,41 @@
 {
     [super viewDidLoad];
     
+    self.hotStageSegment = [[UISegmentedControl alloc]init];
+    [self.view addSubview:self.hotStageSegment];
+    self.hotStageSegment.frame = CGRectMake(30, 40, 100, 40);
+    [self.hotStageSegment insertSegmentWithTitle:@"rock" atIndex:0 animated:YES];
+    [self.hotStageSegment insertSegmentWithTitle:@"hip-hop" atIndex:1 animated:YES];
+    [self.hotStageSegment addTarget:self action:@selector(hotStageIs:) forControlEvents:UIControlEventValueChanged];
+    
     [self createTheCentralCircle];
     
-//    [self createTheCompassPointer];
     
     [self createDirectionTriangle];
     
-    [self performSelector:@selector(rotateDirectionTriangle) withObject:nil afterDelay:3];
+//    [self performSelector:@selector(rotateDirectionTriangle) withObject:nil afterDelay:3];
     
     // Do any additional setup after loading the view.
 }
+
+- (IBAction)hotStageIs:(UISegmentedControl *)sender {
+    
+    switch (self.hotStageSegment.selectedSegmentIndex) {
+        case 0:
+            self.hotStage = @"Rock";
+            break;
+        case 1:
+            self.hotStage = @"Hip-hop";
+            break;
+        default:
+            break;
+    }
+    
+    NSLog(@"the hot stage is %@", self.hotStage);
+    
+}
+
+
 
 -(void)createTheCentralCircle
 {
@@ -60,28 +89,10 @@
     [self.view.layer addSublayer:circle];
 }
 
--(void)createTheCompassPointer
-{
-
-    CALayer *sublayer = [CALayer layer];
-    sublayer.backgroundColor = [UIColor grayColor].CGColor;
-    sublayer.shadowOffset = CGSizeMake(0, 3);
-    sublayer.frame = CGRectMake(self.view.center.x-8, self.view.center.y-96, 20, 192);
-    sublayer.borderColor = [UIColor blackColor].CGColor;
-    sublayer.borderWidth = 2.0;
-    sublayer.cornerRadius = 10.0;
-    
-
-    
-    [self.view.layer addSublayer:sublayer];
-    
-}
-
 
 
 -(void)createDirectionTriangle
 {
-
 
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathMoveToPoint(path, NULL, -10, 175);
@@ -102,16 +113,48 @@
 }
 
 
--(void)rotateDirectionTriangle
+
+-(void)guideToStage:(Direction) d
+{
+    switch (d) {
+        case west:
+            NSLog(@"turn to the WEST to the stage");
+            break;
+        case east:
+            NSLog(@"turn to the EAST to the stage");
+            break;
+        default:
+            break;
+    }
+}
+
+
+//-(void)guideUserToStageWithCompassAnimationForDirection:(Direction)
+//{
+//    
+//    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
+//    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(40, 20)];
+//    anim.duration = 2.0;
+//    
+//    [self.triangleShape addAnimation:anim forKey:@"anim"];
+//    
+//}
+
+
+
+
+-(void)pointCompassWest
 {
     
-    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
-    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(40, 20)];
-    anim.duration = 2.0;
-    
-    [self.triangleShape addAnimation:anim forKey:@"anim"];
     
 }
+
+
+-(void)pointCompassEast
+{
+    
+}
+
 
 
 - (void)didReceiveMemoryWarning
@@ -119,10 +162,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)moveButtonPressed:(id)sender {
-    
-    [self rotateDirectionTriangle];
-}
+//- (IBAction)moveButtonPressed:(id)sender {
+//    
+//    [self rotateDirectionTriangle];
+//}
 
 /*
 #pragma mark - Navigation
