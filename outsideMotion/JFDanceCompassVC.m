@@ -10,6 +10,7 @@
 
 @interface JFDanceCompassVC ()
 
+
 @end
 
 @implementation JFDanceCompassVC
@@ -29,7 +30,9 @@
     
     [self createTheCentralCircle];
     
-    [self createTheCompassPointer];
+//    [self createTheCompassPointer];
+    
+    [self createDirectionTriangle];
     
     // Do any additional setup after loading the view.
 }
@@ -60,11 +63,33 @@
     CALayer *sublayer = [CALayer layer];
     sublayer.backgroundColor = [UIColor grayColor].CGColor;
     sublayer.shadowOffset = CGSizeMake(0, 3);
-    sublayer.frame = CGRectMake(self.view.center.x-14, self.view.center.y-96, 30, 192);
+    sublayer.frame = CGRectMake(self.view.center.x-8, self.view.center.y-96, 20, 192);
     sublayer.borderColor = [UIColor blackColor].CGColor;
     sublayer.borderWidth = 2.0;
     sublayer.cornerRadius = 10.0;
     [self.view.layer addSublayer:sublayer];
+    
+}
+
+
+
+-(void)createDirectionTriangle
+{
+
+
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, -10, 175);
+    CGPathAddLineToPoint(path, NULL, 190, 75);
+    CGPathAddLineToPoint(path, NULL, 190, 275);
+    CGPathAddLineToPoint(path, NULL, -10, 175);
+    
+    CAShapeLayer *shapeLayer = [[CAShapeLayer alloc]init];
+    [shapeLayer setBounds:CGRectMake(0, 0, 50, 200)];
+    [shapeLayer setFillColor:[[UIColor blackColor]CGColor]];
+    [shapeLayer setPosition:CGPointMake(200, 200)];
+    [shapeLayer setPath:path];
+    
+    [[[self view]layer]addSublayer:shapeLayer];
     
 }
 
