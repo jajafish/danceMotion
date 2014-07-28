@@ -14,6 +14,8 @@
 +(instancetype)sharedDanceDataService;
 @property (strong, nonatomic) CMMotionManager *motionManager;
 
+@property (strong, nonatomic) NSString *stageUserAttending;
+
 // accel values
 @property double currentAccelX;
 @property double currentAccelY;
@@ -21,6 +23,7 @@
 @property double oldAccelX;
 @property double oldAccelY;
 @property double oldAccelZ;
+@property double userCurrentTravoltage;
 
 -(void)recordUserDanceData;
 -(double)analyzeUserDanceData:(double)accelX :(double)accelY :(double)accelZ :(double)oldAccelX :(double)oldAccelY :(double)oldAccelZ;

@@ -34,6 +34,9 @@
     
     NSLog(@"initializing shared dance data service");
     
+    // until replaced with splash-screen selection
+    self.stageUserAttending = @"Rock";
+    
     return self;
 }
 
@@ -94,14 +97,71 @@
     double accelCombOfSq = (accelX2 + accelY2 + accelZ2);
     double accelRootOfSqComb = sqrt(accelCombOfSq);
     
-    double travoltage = accelRootOfSqComb;
-    NSLog(@"travoltage is %f", travoltage);
+    self.userCurrentTravoltage = accelRootOfSqComb;
+    NSLog(@"from ANALYSIS: travoltage is %f", self.userCurrentTravoltage);
     
-    return travoltage;
+    [self sendUserDanceData];
+    
+    return self.userCurrentTravoltage;
+    
 }
 
 -(void)sendUserDanceData
 {
+    
+    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    NSString *travoltageString = [NSString stringWithFormat:@"%f", self.userCurrentTravoltage];
+    NSString *userId = @"jared fishman";
+
+    
+    
+    NSError *error;
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+    
+    // servers
+    NSString *gershonLocalHost = @"http://192.168.8.221:3000/api";
+    NSString *amazonServiceURL = @"http://ec2-54-80-53-189.compute-1.amazonaws.com:3000/api";
+    NSString *stephanieLocalHost = @"http://50.58.157.74:3000/api";
+    NSString *serviceURL = amazonServiceURL;
+    NSURL * url = [NSURL URLWithString:serviceURL];
+    NSMutableURLRequest * urlRequest = [NSMutableURLRequest requestWithURL:url];
+    
+    // post request
+    
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    
+    NSDictionary *jsonData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              self.stageUserAttending, @"stage",
+                              travoltageString, @"intensity",
+                              [NSString stringWithFormat:@"%f", timeStamp], @"timestamp",
+                              userId, @"userid",
+                              nil];
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:jsonData options:0 error:&error];
+    [urlRequest setHTTPBody:postData];
+    
+    NSURLSessionDataTask * dataTask =[defaultSession dataTaskWithRequest:urlRequest
+                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                           NSLog(@"Response:%@ %@\n", response, error);
+                                                           if(error == nil)
+                                                           {
+                                                               NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                               NSLog(@"Data = %@",text);
+                                                           }
+                                                           
+                                                       }];
+    
+    
+    NSLog(@"from post: travoltage is %f", self.userCurrentTravoltage);
+    NSLog(@"from post: stage is %@", self.stageUserAttending);
+    
+    NSLog(@"posting to ste");
+    
+    [dataTask resume];
     
 }
 
