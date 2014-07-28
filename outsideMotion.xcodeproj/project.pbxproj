@@ -22,16 +22,15 @@
 		E77D419019844A820099C789 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E77D418E19844A820099C789 /* InfoPlist.strings */; };
 		E77D419219844A820099C789 /* outsideMotionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E77D419119844A820099C789 /* outsideMotionTests.m */; };
 		E77D419C19844B0D0099C789 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D419B19844B0D0099C789 /* CoreMotion.framework */; };
-		E78B9D5719854D20000291FD /* transTri.png in Resources */ = {isa = PBXBuildFile; fileRef = E78B9D5619854D20000291FD /* transTri.png */; };
 		E78B9D591985510A000291FD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E78B9D581985510A000291FD /* CoreLocation.framework */; };
 		E78B9D5C19859A44000291FD /* tree.png in Resources */ = {isa = PBXBuildFile; fileRef = E78B9D5A19859A44000291FD /* tree.png */; };
 		E78B9D5D19859A44000291FD /* betterBack.png in Resources */ = {isa = PBXBuildFile; fileRef = E78B9D5B19859A44000291FD /* betterBack.png */; };
 		E78B9D5F19859C9A000291FD /* finalbg.png in Resources */ = {isa = PBXBuildFile; fileRef = E78B9D5E19859C9A000291FD /* finalbg.png */; };
+		E78B9D641986ED2D000291FD /* JFDanceDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B9D631986ED2D000291FD /* JFDanceDataService.m */; };
 		E7E4F68B1984C7BD00759733 /* JFDanceMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E4F68A1984C7BD00759733 /* JFDanceMapVC.m */; };
 		E7E4F6911984CECA00759733 /* JFDanceCompassVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E4F6901984CECA00759733 /* JFDanceCompassVC.m */; };
 		E7E4F6931984D30900759733 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E4F6921984D30900759733 /* QuartzCore.framework */; };
 		E7E4F69519852EAA00759733 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = E7E4F69419852EAA00759733 /* compass.png */; };
-		E7E4F697198531C000759733 /* tree.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7E4F696198531C000759733 /* tree.jpg */; };
 		E7E4F69B198549C900759733 /* dcbg.png in Resources */ = {isa = PBXBuildFile; fileRef = E7E4F69A198549C900759733 /* dcbg.png */; };
 /* End PBXBuildFile section */
 
@@ -66,18 +65,18 @@
 		E77D418F19844A820099C789 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E77D419119844A820099C789 /* outsideMotionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = outsideMotionTests.m; sourceTree = "<group>"; };
 		E77D419B19844B0D0099C789 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		E78B9D5619854D20000291FD /* transTri.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transTri.png; sourceTree = "<group>"; };
 		E78B9D581985510A000291FD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E78B9D5A19859A44000291FD /* tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree.png; sourceTree = "<group>"; };
 		E78B9D5B19859A44000291FD /* betterBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = betterBack.png; sourceTree = "<group>"; };
 		E78B9D5E19859C9A000291FD /* finalbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finalbg.png; sourceTree = "<group>"; };
+		E78B9D621986ED2D000291FD /* JFDanceDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFDanceDataService.h; sourceTree = "<group>"; };
+		E78B9D631986ED2D000291FD /* JFDanceDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFDanceDataService.m; sourceTree = "<group>"; };
 		E7E4F6891984C7BD00759733 /* JFDanceMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFDanceMapVC.h; sourceTree = "<group>"; };
 		E7E4F68A1984C7BD00759733 /* JFDanceMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFDanceMapVC.m; sourceTree = "<group>"; };
 		E7E4F68F1984CECA00759733 /* JFDanceCompassVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFDanceCompassVC.h; sourceTree = "<group>"; };
 		E7E4F6901984CECA00759733 /* JFDanceCompassVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFDanceCompassVC.m; sourceTree = "<group>"; };
 		E7E4F6921984D30900759733 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		E7E4F69419852EAA00759733 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
-		E7E4F696198531C000759733 /* tree.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tree.jpg; sourceTree = "<group>"; };
+		E7E4F69419852EAA00759733 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = compass.png; path = outsideMotion/compass.png; sourceTree = "<group>"; };
 		E7E4F69A198549C900759733 /* dcbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dcbg.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,12 +110,6 @@
 		E77D415A19844A820099C789 = {
 			isa = PBXGroup;
 			children = (
-				E78B9D5E19859C9A000291FD /* finalbg.png */,
-				E78B9D5A19859A44000291FD /* tree.png */,
-				E78B9D5B19859A44000291FD /* betterBack.png */,
-				E78B9D5619854D20000291FD /* transTri.png */,
-				E7E4F69A198549C900759733 /* dcbg.png */,
-				E7E4F696198531C000759733 /* tree.jpg */,
 				E77D416C19844A820099C789 /* outsideMotion */,
 				E77D418B19844A820099C789 /* outsideMotionTests */,
 				E77D416519844A820099C789 /* Frameworks */,
@@ -150,12 +143,12 @@
 		E77D416C19844A820099C789 /* outsideMotion */ = {
 			isa = PBXGroup;
 			children = (
-				E7E4F69419852EAA00759733 /* compass.png */,
 				E77D417519844A820099C789 /* JFAppDelegate.h */,
 				E77D417619844A820099C789 /* JFAppDelegate.m */,
 				E77D417819844A820099C789 /* Main.storyboard */,
-				E7E4F68C1984CEA700759733 /* vc */,
-				E77D417E19844A820099C789 /* Images.xcassets */,
+				E78B9D601986EA80000291FD /* assets */,
+				E78B9D611986ECE9000291FD /* dance data logic */,
+				E7E4F68C1984CEA700759733 /* view controllers */,
 				E77D416D19844A820099C789 /* Supporting Files */,
 			);
 			path = outsideMotion;
@@ -164,6 +157,7 @@
 		E77D416D19844A820099C789 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E77D417E19844A820099C789 /* Images.xcassets */,
 				E77D416E19844A820099C789 /* outsideMotion-Info.plist */,
 				E77D416F19844A820099C789 /* InfoPlist.strings */,
 				E77D417219844A820099C789 /* main.m */,
@@ -190,7 +184,29 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E7E4F68C1984CEA700759733 /* vc */ = {
+		E78B9D601986EA80000291FD /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				E7E4F69419852EAA00759733 /* compass.png */,
+				E78B9D5E19859C9A000291FD /* finalbg.png */,
+				E78B9D5A19859A44000291FD /* tree.png */,
+				E78B9D5B19859A44000291FD /* betterBack.png */,
+				E7E4F69A198549C900759733 /* dcbg.png */,
+			);
+			name = assets;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		E78B9D611986ECE9000291FD /* dance data logic */ = {
+			isa = PBXGroup;
+			children = (
+				E78B9D621986ED2D000291FD /* JFDanceDataService.h */,
+				E78B9D631986ED2D000291FD /* JFDanceDataService.m */,
+			);
+			name = "dance data logic";
+			sourceTree = "<group>";
+		};
+		E7E4F68C1984CEA700759733 /* view controllers */ = {
 			isa = PBXGroup;
 			children = (
 				E77D417B19844A820099C789 /* JFViewController.h */,
@@ -198,7 +214,7 @@
 				E7E4F68E1984CEB800759733 /* compass */,
 				E7E4F68D1984CEB300759733 /* map */,
 			);
-			name = vc;
+			name = "view controllers";
 			sourceTree = "<group>";
 		};
 		E7E4F68D1984CEB300759733 /* map */ = {
@@ -299,12 +315,10 @@
 				E77D417F19844A820099C789 /* Images.xcassets in Resources */,
 				E7E4F69519852EAA00759733 /* compass.png in Resources */,
 				E7E4F69B198549C900759733 /* dcbg.png in Resources */,
-				E78B9D5719854D20000291FD /* transTri.png in Resources */,
 				E77D417119844A820099C789 /* InfoPlist.strings in Resources */,
 				E78B9D5D19859A44000291FD /* betterBack.png in Resources */,
 				E78B9D5F19859C9A000291FD /* finalbg.png in Resources */,
 				E77D417A19844A820099C789 /* Main.storyboard in Resources */,
-				E7E4F697198531C000759733 /* tree.jpg in Resources */,
 				E78B9D5C19859A44000291FD /* tree.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E77D417719844A820099C789 /* JFAppDelegate.m in Sources */,
+				E78B9D641986ED2D000291FD /* JFDanceDataService.m in Sources */,
 				E77D417D19844A820099C789 /* JFViewController.m in Sources */,
 				E7E4F6911984CECA00759733 /* JFDanceCompassVC.m in Sources */,
 				E77D417319844A820099C789 /* main.m in Sources */,

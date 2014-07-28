@@ -105,46 +105,7 @@
     self.recordingIndication.backgroundColor = [UIColor greenColor];
     self.recordingText.text = @"tap here to stop recording";
     
-    if ([self.motionManager isAccelerometerAvailable] && [self.motionManager isGyroAvailable])
-    {
-     
-        // GYRO
-        
-        [self.motionManager setGyroUpdateInterval:1.0f / 1.0f];
-        
-        [self.motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-            
-            self.gyroX = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.x];
-            
-            self.gyroY = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.y];
-            
-            self.gyroZ = [[NSString alloc]initWithFormat:@"%.02f", gyroData.rotationRate.z];
-            
-            NSLog(@"the gyro values are %@, %@, and %@", self.gyroX, self.gyroY, self.gyroZ);
-            
-        }];
-        
-        
-        // ACCEL
-        
-        [self.motionManager setAccelerometerUpdateInterval:1.0f / 1.0f];
-        
-        [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
-            
-            self.accelOldX = self.accelX;
-            self.accelX = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.x];
 
-            self.accelOldY = self.accelY;
-            self.accelY = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.y];
-            
-            self.accelOldZ = self.accelZ;
-            self.accelZ = [[NSString alloc]initWithFormat:@"%.02f", accelerometerData.acceleration.z];
-            
-            [self calculateAndSendNormOfMotionActivity:self.accelX :self.accelY :self.accelZ :self.accelOldX :self.accelOldY :self.accelOldZ :self.gyroX :self.gyroY :self.gyroZ];
-
-        }];
-    
-    }
 
 }
 
@@ -200,6 +161,16 @@
     double rootOfComb = sqrt(combOfSq);
     NSLog(@"the root of the comb is %f", rootOfComb);
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     // configure the extra post data
     

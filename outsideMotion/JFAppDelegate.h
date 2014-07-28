@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JFDanceDataService.h"
 
 @interface JFAppDelegate : UIResponder <UIApplicationDelegate>
 
