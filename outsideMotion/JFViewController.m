@@ -214,7 +214,10 @@
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
     
-    NSString *serviceURL = @"http://192.168.8.221:3000/api";
+    
+//    NSString *gershonIP = @"192.168.8.221";
+    
+    NSString *serviceURL = @"http://ec2-54-80-53-189.compute-1.amazonaws.com:3000/api";
     
     NSURL * url = [NSURL URLWithString:serviceURL];
     NSMutableURLRequest * urlRequest = [NSMutableURLRequest requestWithURL:url];
@@ -249,10 +252,12 @@
     
 }
 
+
 - (IBAction)stopRecordingPressed:(UIButton *)sender {
     
     [self.motionManager stopGyroUpdates];
     [self.motionManager stopAccelerometerUpdates];
+    self.genreStageAttending = nil;
     
     self.recordingIndication.backgroundColor = [UIColor redColor];
     self.recordingText.text = @"choose a stage to record dance activity";
