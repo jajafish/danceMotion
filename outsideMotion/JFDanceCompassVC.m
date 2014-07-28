@@ -100,7 +100,7 @@
     self.northRange = NSRangeFromString(northString);
     
     
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(grabStageRatingData) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(grabStageRatingData) userInfo:nil repeats:YES];
     
     self.layer = _subView.layer;
     self.anim = [CABasicAnimation animationWithKeyPath:@"transform"];
@@ -165,47 +165,47 @@
 -(void)grabStageRatingData
 {
     
-    NSLog(@"this should run");
+//    NSLog(@"this should run");
+//    
+//    NSString *serviceURL = @"http://ec2-54-80-53-189.compute-1.amazonaws.com:3000/api";
+//    NSURL *url = [NSURL URLWithString:serviceURL];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    
+//
+//    NSURLSession *session = [NSURLSession sharedSession];
+//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        
+//    NSDictionary *list =[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+//        
+////        NSLog(@"here is the data %@", list);
+//        
+//        double hipHopStageAmp = [list[@"Hip-hop"] doubleValue];
+//        double rockStageAmp = [list[@"Rock"] doubleValue];
+//        
+////        NSLog(@"rock stage amp is %f", rockStageAmp);
+////        NSLog(@"hip hop stage amp is %f", hipHopStageAmp);
     
-    NSString *serviceURL = @"http://ec2-54-80-53-189.compute-1.amazonaws.com:3000/api";
-    NSURL *url = [NSURL URLWithString:serviceURL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        
+//        if (rockStageAmp > hipHopStageAmp){
+//            self.hotStage = @"Rock";
+////            NSLog(@"the rock stage is hotter");
+//
+//            
+//        } else if (hipHopStageAmp > rockStageAmp) {
+//            self.hotStage = @"Hip-hop";
+////            NSLog(@"the hip hop stage is hotter");
+//
+//        }
+//        
+//        NSLog(@"the hot stage is %@", self.hotStage);
     
-
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-    NSDictionary *list =[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        
-//        NSLog(@"here is the data %@", list);
-        
-        double hipHopStageAmp = [list[@"Hip-hop"] doubleValue];
-        double rockStageAmp = [list[@"Rock"] doubleValue];
-        
-//        NSLog(@"rock stage amp is %f", rockStageAmp);
-//        NSLog(@"hip hop stage amp is %f", hipHopStageAmp);
-    
-        
-        if (rockStageAmp > hipHopStageAmp){
-            self.hotStage = @"Rock";
-//            NSLog(@"the rock stage is hotter");
-
-            
-        } else if (hipHopStageAmp > rockStageAmp) {
-            self.hotStage = @"Hip-hop";
-//            NSLog(@"the hip hop stage is hotter");
-
-        }
-        
-        NSLog(@"the hot stage is %@", self.hotStage);
-        
 //        [self performSelector:@selector(pointTheCompass) withObject:nil afterDelay:500];
         
         [self pointTheCompass];
         
-    }];
-    
-    [task resume];
+//    }];
+//    
+//    [task resume];
     
 }
 
@@ -221,9 +221,9 @@
 //        NSLog(@"started animating at %f", NSTimeIntervalSince1970);
     
     
-    if ([self.hotStage isEqualToString:@"Rock"]){
-        NSLog(@"the hot stage is rock (from if)");
-        
+//    if ([self.hotStage isEqualToString:@"Rock"]){
+//        NSLog(@"the hot stage is rock (from if)");
+    
         self.anim.fromValue = [NSValue valueWithCATransform3D:self.layer.transform];
         self.anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, 1.0)];
         self.anim.duration = 1.0;
@@ -233,23 +233,23 @@
         [self.layer addAnimation:self.anim forKey:@"xform"];
         
         
-    } else if ([self.hotStage isEqualToString:@"Hip-hop"]){
-        
-        NSLog(@"the hot stage is hip hop (from if)");
-        
-        self.anim.fromValue = [NSValue valueWithCATransform3D:self.layer.transform];
-        self.anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, -1.0)];
-        self.anim.duration = 1.0;
-        self.anim.repeatCount = CGFLOAT_MAX;
-        self.anim.autoreverses = YES;
-        self.anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        [self.layer addAnimation:self.anim forKey:@"xform"];
-        NSLog(@"the animation is %@", self.anim);
-        
- 
-        
-    }
+//    } else if ([self.hotStage isEqualToString:@"Hip-hop"]){
+//        
+//        NSLog(@"the hot stage is hip hop (from if)");
+//        
+//        self.anim.fromValue = [NSValue valueWithCATransform3D:self.layer.transform];
+//        self.anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI_2, 0.0, 0.0, -1.0)];
+//        self.anim.duration = 1.0;
+//        self.anim.repeatCount = CGFLOAT_MAX;
+//        self.anim.autoreverses = YES;
+//        self.anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//        [self.layer addAnimation:self.anim forKey:@"xform"];
+//        NSLog(@"the animation is %@", self.anim);
+//        
+// 
+//        
 //    }
+////    }
     
 
     
