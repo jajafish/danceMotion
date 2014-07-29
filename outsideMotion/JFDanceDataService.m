@@ -10,8 +10,11 @@
 #import "JFAppDelegate.h"
 #import "JFSplashVC.h"
 
-
 @implementation JFDanceDataService
+
+@synthesize stageUserAttending;
+
+static int KVOContext;
 
 +(instancetype)sharedDanceDataService
 {
@@ -33,7 +36,12 @@
 -(instancetype)init
 {
     self = [super init];
+    
     self.motionManager = [[CMMotionManager alloc]init];
+    
+    
+    [[JFDanceDataService sharedDanceDataService] addObserver:self forKeyPath:@"stageUserIsAttendingNow" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:nil];
+    
     
     NSLog(@"initializing shared dance data service");
 
@@ -46,9 +54,8 @@
                        context:(void *)context {
     
     if ([keyPath isEqual:@"stageUserIsAttendingNow"]) {
-        self.stageUserAttending = @"hi";
-        
-//        [change objectForKey:keyPath];
+        self.stageUserAttending = [change valueForKeyPath:keyPath];
+        NSLog(@"im getting the message, that i should change the value to %@", [change valueForKeyPath:keyPath]);
     }
 
     

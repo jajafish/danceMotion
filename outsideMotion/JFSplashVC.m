@@ -19,6 +19,8 @@
 
 @implementation JFSplashVC
 
+static int KVOContext;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -62,7 +64,7 @@
     
     self.globalDanceDataService.stageUserAttending = self.stage;
     
-    [self.globalDanceDataService setValue:self.stage forKeyPath:@"stageUserIsAttendingNow"];
+//    [self.globalDanceDataService setValue:self.stage forKeyPath:@"stageUserIsAttendingNow"];
     
     [self performSegueWithIdentifier:@"fromSplashToTab" sender:self];
     
