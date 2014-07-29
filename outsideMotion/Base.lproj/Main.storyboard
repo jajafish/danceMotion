@@ -77,12 +77,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Jq-H8-ObH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="319" y="777"/>
+            <point key="canvasLocation" x="845" y="777"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pQr-tK-eSx">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="fSq-Ce-ynf" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="YDI-5F-Tx3"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="6Wd-M8-5U7">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
@@ -96,7 +97,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wqn-H2-mJj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-215" y="1104"/>
+            <point key="canvasLocation" x="311" y="1104"/>
         </scene>
         <!--Dance CompassVC - Item 2-->
         <scene sceneID="Ry7-W5-K4l">
@@ -130,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKi-Xh-lXR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="319" y="1490"/>
+            <point key="canvasLocation" x="845" y="1490"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
