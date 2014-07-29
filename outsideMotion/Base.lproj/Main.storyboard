@@ -53,7 +53,7 @@
             </objects>
             <point key="canvasLocation" x="-74" y="274"/>
         </scene>
-        <!--Dance MapVC - Item 1-->
+        <!--Dance MapVC-->
         <scene sceneID="suQ-oS-AJ0">
             <objects>
                 <viewController id="GDy-nB-ckm" customClass="JFDanceMapVC" sceneMemberID="viewController">
@@ -73,7 +73,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="7Qu-EC-4g7"/>
+                    <tabBarItem key="tabBarItem" title="" image="map_on.png" id="7Qu-EC-4g7"/>
                     <connections>
                         <outlet property="danceMapWebView" destination="nOa-7u-gVV" id="f33-5i-wlW"/>
                     </connections>
@@ -103,7 +103,27 @@
             </objects>
             <point key="canvasLocation" x="-215" y="1104"/>
         </scene>
-        <!--Dance CompassVC - Item 2-->
+        <!--View Controller-->
+        <scene sceneID="pTY-Ch-Akr">
+            <objects>
+                <viewController id="uid-rr-nwO" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PNc-kP-c08"/>
+                        <viewControllerLayoutGuide type="bottom" id="rKR-MR-Tgu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9ny-tI-j8G">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="568"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NSG-cY-XOq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-51" y="1815"/>
+        </scene>
+        <!--Dance CompassVC-->
         <scene sceneID="Ry7-W5-K4l">
             <objects>
                 <viewController id="9v5-gO-lMV" customClass="JFDanceCompassVC" sceneMemberID="viewController">
@@ -128,7 +148,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="qHX-O3-6Jr"/>
+                    <tabBarItem key="tabBarItem" title="" image="compass_on.png" id="qHX-O3-6Jr"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
@@ -140,6 +160,10 @@
             <point key="canvasLocation" x="319" y="1490"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="compass_on.png" width="50" height="50"/>
+        <image name="map_on.png" width="50" height="50"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -60,7 +60,7 @@
     [super viewDidLoad];
     
     // set up the background view
-    UIImage *backgroundView = [UIImage imageNamed:@"finalbg.png"];
+    UIImage *backgroundView = [UIImage imageNamed:@"bg.png"];
     self.backgroundSafariBrand = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 517)];
     self.backgroundSafariBrand.image = backgroundView;
     [self.view insertSubview:self.backgroundSafariBrand belowSubview:self.subView];
