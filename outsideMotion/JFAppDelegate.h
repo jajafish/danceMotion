@@ -16,3 +16,4 @@
 @property (strong, nonatomic) NSString *stageUserAttending;
 
 @end
+
