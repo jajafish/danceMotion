@@ -8,13 +8,11 @@
 
 #import "JFDanceDataService.h"
 #import "JFAppDelegate.h"
-#import "JFSplashVC.h"
 
 @implementation JFDanceDataService
 
 @synthesize stageUserAttending;
 
-static int KVOContext;
 
 +(instancetype)sharedDanceDataService
 {
