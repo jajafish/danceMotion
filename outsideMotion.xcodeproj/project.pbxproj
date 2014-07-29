@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E7549EE519875D6A00B84730 /* JFNavTabVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E7549EE419875D6A00B84730 /* JFNavTabVC.m */; };
 		E77D416719844A820099C789 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D416619844A820099C789 /* Foundation.framework */; };
 		E77D416919844A820099C789 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D416819844A820099C789 /* CoreGraphics.framework */; };
 		E77D416B19844A820099C789 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D416A19844A820099C789 /* UIKit.framework */; };
@@ -22,7 +23,6 @@
 		E77D419019844A820099C789 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E77D418E19844A820099C789 /* InfoPlist.strings */; };
 		E77D419219844A820099C789 /* outsideMotionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E77D419119844A820099C789 /* outsideMotionTests.m */; };
 		E77D419C19844B0D0099C789 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D419B19844B0D0099C789 /* CoreMotion.framework */; };
-		E78B9D5719854D20000291FD /* transTri.png in Resources */ = {isa = PBXBuildFile; fileRef = E78B9D5619854D20000291FD /* transTri.png */; };
 		E78B9D591985510A000291FD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E78B9D581985510A000291FD /* CoreLocation.framework */; };
 		E78B9D5C19859A44000291FD /* tree.png in Resources */ = {isa = PBXBuildFile; fileRef = E78B9D5A19859A44000291FD /* tree.png */; };
 		E78B9D5D19859A44000291FD /* betterBack.png in Resources */ = {isa = PBXBuildFile; fileRef = E78B9D5B19859A44000291FD /* betterBack.png */; };
@@ -46,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E7549EE319875D6A00B84730 /* JFNavTabVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFNavTabVC.h; sourceTree = "<group>"; };
+		E7549EE419875D6A00B84730 /* JFNavTabVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFNavTabVC.m; sourceTree = "<group>"; };
 		E77D416319844A820099C789 /* outsideMotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = outsideMotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E77D416619844A820099C789 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E77D416819844A820099C789 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -66,7 +68,6 @@
 		E77D418F19844A820099C789 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E77D419119844A820099C789 /* outsideMotionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = outsideMotionTests.m; sourceTree = "<group>"; };
 		E77D419B19844B0D0099C789 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		E78B9D5619854D20000291FD /* transTri.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transTri.png; sourceTree = "<group>"; };
 		E78B9D581985510A000291FD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E78B9D5A19859A44000291FD /* tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree.png; sourceTree = "<group>"; };
 		E78B9D5B19859A44000291FD /* betterBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = betterBack.png; sourceTree = "<group>"; };
@@ -114,7 +115,6 @@
 				E78B9D5E19859C9A000291FD /* finalbg.png */,
 				E78B9D5A19859A44000291FD /* tree.png */,
 				E78B9D5B19859A44000291FD /* betterBack.png */,
-				E78B9D5619854D20000291FD /* transTri.png */,
 				E7E4F69A198549C900759733 /* dcbg.png */,
 				E7E4F696198531C000759733 /* tree.jpg */,
 				E77D416C19844A820099C789 /* outsideMotion */,
@@ -197,6 +197,8 @@
 				E77D417C19844A820099C789 /* JFViewController.m */,
 				E7E4F68E1984CEB800759733 /* compass */,
 				E7E4F68D1984CEB300759733 /* map */,
+				E7549EE319875D6A00B84730 /* JFNavTabVC.h */,
+				E7549EE419875D6A00B84730 /* JFNavTabVC.m */,
 			);
 			name = vc;
 			sourceTree = "<group>";
@@ -299,7 +301,6 @@
 				E77D417F19844A820099C789 /* Images.xcassets in Resources */,
 				E7E4F69519852EAA00759733 /* compass.png in Resources */,
 				E7E4F69B198549C900759733 /* dcbg.png in Resources */,
-				E78B9D5719854D20000291FD /* transTri.png in Resources */,
 				E77D417119844A820099C789 /* InfoPlist.strings in Resources */,
 				E78B9D5D19859A44000291FD /* betterBack.png in Resources */,
 				E78B9D5F19859C9A000291FD /* finalbg.png in Resources */,
@@ -324,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7549EE519875D6A00B84730 /* JFNavTabVC.m in Sources */,
 				E77D417719844A820099C789 /* JFAppDelegate.m in Sources */,
 				E77D417D19844A820099C789 /* JFViewController.m in Sources */,
 				E7E4F6911984CECA00759733 /* JFDanceCompassVC.m in Sources */,

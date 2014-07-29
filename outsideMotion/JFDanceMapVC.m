@@ -9,6 +9,7 @@
 #import "JFDanceMapVC.h"
 
 @interface JFDanceMapVC ()
+@property (strong, nonatomic) IBOutlet UIWebView *danceMapWebView;
 
 @end
 
@@ -26,7 +27,40 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    self.danceMapWebView.delegate = self;
+    
+    self.danceMapWebView.scrollView.scrollEnabled = NO;
+    self.danceMapWebView.scrollView.bounces = NO;
+    
+    NSString *urlString = @"http://ec2-54-242-29-209.compute-1.amazonaws.com/map_mobile.html";
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if ([data length])[self.danceMapWebView loadRequest:request];
+    }];
+    
+    
+    
+}
+
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    CGSize contentSize = self.danceMapWebView.scrollView.contentSize;
+    CGSize viewSize = self.view.bounds.size;
+    
+    float rw = viewSize.width / contentSize.width;
+    
+    self.danceMapWebView.scrollView.minimumZoomScale = rw;
+    self.danceMapWebView.scrollView.maximumZoomScale = rw;
+    self.danceMapWebView.scrollView.zoomScale = rw;
+    
 }
 
 - (void)didReceiveMemoryWarning

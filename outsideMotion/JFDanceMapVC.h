@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JFDanceMapVC : UIViewController
+@interface JFDanceMapVC : UIViewController <UIWebViewDelegate>
 
 @end

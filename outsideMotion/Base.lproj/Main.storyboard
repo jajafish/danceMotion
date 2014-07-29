@@ -53,19 +53,19 @@
             </objects>
             <point key="canvasLocation" x="-74" y="274"/>
         </scene>
-        <!--View Controller - Item 1-->
+        <!--Dance MapVC - Item 1-->
         <scene sceneID="suQ-oS-AJ0">
             <objects>
-                <viewController id="GDy-nB-ckm" sceneMemberID="viewController">
+                <viewController id="GDy-nB-ckm" customClass="JFDanceMapVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ce4-Xe-Rdy"/>
                         <viewControllerLayoutGuide type="bottom" id="aGq-Cg-2jU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4rj-75-cTk">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nOa-7u-gVV">
+                            <webView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nOa-7u-gVV">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -74,6 +74,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="7Qu-EC-4g7"/>
+                    <connections>
+                        <outlet property="danceMapWebView" destination="nOa-7u-gVV" id="f33-5i-wlW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Jq-H8-ObH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -83,8 +86,10 @@
         <scene sceneID="pQr-tK-eSx">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="fSq-Ce-ynf" sceneMemberID="viewController">
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="6Wd-M8-5U7">
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="6Wd-M8-5U7">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -107,7 +112,7 @@
                         <viewControllerLayoutGuide type="bottom" id="OYq-MQ-fK6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xyM-Ur-pao">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0v1-xw-scb">
@@ -124,6 +129,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="qHX-O3-6Jr"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="subView" destination="0v1-xw-scb" id="80H-uN-H6O"/>
                     </connections>
