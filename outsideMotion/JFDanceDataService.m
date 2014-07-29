@@ -7,6 +7,9 @@
 //
 
 #import "JFDanceDataService.h"
+#import "JFAppDelegate.h"
+#import "JFSplashVC.h"
+
 
 @implementation JFDanceDataService
 
@@ -33,11 +36,27 @@
     self.motionManager = [[CMMotionManager alloc]init];
     
     NSLog(@"initializing shared dance data service");
-    
-    // until replaced with splash-screen selection
-    self.stageUserAttending = @"Rock";
-    
+
     return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    
+    if ([keyPath isEqual:@"stageUserIsAttendingNow"]) {
+        self.stageUserAttending = @"hi";
+        
+//        [change objectForKey:keyPath];
+    }
+
+    
+    
+    [super observeValueForKeyPath:keyPath
+                         ofObject:object
+                           change:change
+                          context:context];
 }
 
 
@@ -113,8 +132,6 @@
     NSString *travoltageString = [NSString stringWithFormat:@"%f", self.userCurrentTravoltage];
     NSString *userId = @"jared fishman";
 
-    
-    
     NSError *error;
     
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];

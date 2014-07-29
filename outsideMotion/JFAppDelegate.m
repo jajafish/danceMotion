@@ -12,9 +12,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     JFDanceDataService *globalDanceDataService = [JFDanceDataService sharedDanceDataService];
-
+    
+    NSLog(@"the current stage is %@", self.stageUserAttending);
+    
     [globalDanceDataService recordUserDanceData];
     
     return YES;

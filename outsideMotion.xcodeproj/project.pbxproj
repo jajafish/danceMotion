@@ -27,6 +27,8 @@
 		E78B9D5D19859A44000291FD /* betterBack.png in Resources */ = {isa = PBXBuildFile; fileRef = E78B9D5B19859A44000291FD /* betterBack.png */; };
 		E78B9D5F19859C9A000291FD /* finalbg.png in Resources */ = {isa = PBXBuildFile; fileRef = E78B9D5E19859C9A000291FD /* finalbg.png */; };
 		E78B9D641986ED2D000291FD /* JFDanceDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B9D631986ED2D000291FD /* JFDanceDataService.m */; };
+		E78B9D67198715F5000291FD /* JFSplashVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B9D66198715F5000291FD /* JFSplashVC.m */; };
+		E78B9D6A19871945000291FD /* JFMainNavTabVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B9D6919871945000291FD /* JFMainNavTabVC.m */; };
 		E7E4F68B1984C7BD00759733 /* JFDanceMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E4F68A1984C7BD00759733 /* JFDanceMapVC.m */; };
 		E7E4F6911984CECA00759733 /* JFDanceCompassVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E4F6901984CECA00759733 /* JFDanceCompassVC.m */; };
 		E7E4F6931984D30900759733 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E4F6921984D30900759733 /* QuartzCore.framework */; };
@@ -71,6 +73,10 @@
 		E78B9D5E19859C9A000291FD /* finalbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finalbg.png; sourceTree = "<group>"; };
 		E78B9D621986ED2D000291FD /* JFDanceDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFDanceDataService.h; sourceTree = "<group>"; };
 		E78B9D631986ED2D000291FD /* JFDanceDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFDanceDataService.m; sourceTree = "<group>"; };
+		E78B9D65198715F5000291FD /* JFSplashVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFSplashVC.h; sourceTree = "<group>"; };
+		E78B9D66198715F5000291FD /* JFSplashVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFSplashVC.m; sourceTree = "<group>"; };
+		E78B9D6819871945000291FD /* JFMainNavTabVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFMainNavTabVC.h; sourceTree = "<group>"; };
+		E78B9D6919871945000291FD /* JFMainNavTabVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFMainNavTabVC.m; sourceTree = "<group>"; };
 		E7E4F6891984C7BD00759733 /* JFDanceMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFDanceMapVC.h; sourceTree = "<group>"; };
 		E7E4F68A1984C7BD00759733 /* JFDanceMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFDanceMapVC.m; sourceTree = "<group>"; };
 		E7E4F68F1984CECA00759733 /* JFDanceCompassVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFDanceCompassVC.h; sourceTree = "<group>"; };
@@ -209,10 +215,14 @@
 		E7E4F68C1984CEA700759733 /* view controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E78B9D65198715F5000291FD /* JFSplashVC.h */,
+				E78B9D66198715F5000291FD /* JFSplashVC.m */,
 				E77D417B19844A820099C789 /* JFViewController.h */,
 				E77D417C19844A820099C789 /* JFViewController.m */,
 				E7E4F68E1984CEB800759733 /* compass */,
 				E7E4F68D1984CEB300759733 /* map */,
+				E78B9D6819871945000291FD /* JFMainNavTabVC.h */,
+				E78B9D6919871945000291FD /* JFMainNavTabVC.m */,
 			);
 			name = "view controllers";
 			sourceTree = "<group>";
@@ -341,7 +351,9 @@
 				E77D417719844A820099C789 /* JFAppDelegate.m in Sources */,
 				E78B9D641986ED2D000291FD /* JFDanceDataService.m in Sources */,
 				E77D417D19844A820099C789 /* JFViewController.m in Sources */,
+				E78B9D67198715F5000291FD /* JFSplashVC.m in Sources */,
 				E7E4F6911984CECA00759733 /* JFDanceCompassVC.m in Sources */,
+				E78B9D6A19871945000291FD /* JFMainNavTabVC.m in Sources */,
 				E77D417319844A820099C789 /* main.m in Sources */,
 				E7E4F68B1984C7BD00759733 /* JFDanceMapVC.m in Sources */,
 			);
