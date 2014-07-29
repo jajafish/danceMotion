@@ -79,42 +79,10 @@
             </objects>
             <point key="canvasLocation" x="319" y="777"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="M3E-hV-sVW">
-            <objects>
-                <viewController id="D73-Ou-HrB" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="6Dm-TN-K31"/>
-                        <viewControllerLayoutGuide type="bottom" id="KhS-tr-L7B"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="2Bx-yJ-btC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VBJ-S2-id4">
-                                <rect key="frame" x="20" y="126" width="280" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Rock"/>
-                                    <segment title="Hip-hop"/>
-                                </segments>
-                            </segmentedControl>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <segue destination="fSq-Ce-ynf" kind="push" identifier="fromSplashToTab" id="fhU-Ny-8jI"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xXk-bu-jAk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-789" y="1104"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pQr-tK-eSx">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="fSq-Ce-ynf" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="YDI-5F-Tx3"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="6Wd-M8-5U7">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
